@@ -37,5 +37,10 @@
 	"engines": {
 		"node": ">= 18.12.0"
 	},
-	"browserslist": "> 0.5%, last 4 versions, not ie <= 11, not ie_mob <= 11"
+	"browserslist": "> 0.5%, last 4 versions, not ie <= 11, not ie_mob <= 11",
+	"dependencies": {
+		"@sveltejs/svelte-scroller": "^2.0.7",
+		"mapbox-gl": "^3.2.0",
+		"svelte-scroller": "^1.2.2"
+	}
 }
