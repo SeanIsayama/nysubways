@@ -32,10 +32,10 @@
       attributionControl: true, // removes attribution from the bottom of the map
     });
     map.on("load", () => {
-		map.addSource("new_york_routes", {
-			type: "geojson",
-			data: "/src/data/subwaylines.geojson",
-		});
+    map.addSource("new_york_routes", {
+      type: "geojson",
+      data: "https://raw.githubusercontent.com/SeanIsayama/nysubways/main/src/data/subwaylines.geojson",
+    })
     map.addLayer({
         id: "new_york_routes",
         type: "line",
