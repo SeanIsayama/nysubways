@@ -10,7 +10,6 @@
     let gy;
     let x, y;
     let lines = [];
-
     let data = [];
 
     onMount(async () => {
@@ -49,12 +48,6 @@
     
     $: max = d3.max(data, (d) => Math.abs(d.value));
 
-    // Create a symmetric diverging color scale.
-    $: color = d3
-    .scaleSequential()
-    .domain([max, -max])
-    .interpolator(d3.interpolateRdBu);
-
     // Define custom tick labels
     const customLabelsX = ['1 am', '4 am', '7 am', '10 am', '1 pm', '4 pm', '7 pm', '10 pm'];
 
@@ -63,12 +56,13 @@
         .ticks(8)
         .tickFormat((d, i) => customLabelsX[i]));
 
-    const customLabelsY = ['50', '100', '150', '200', '250'];
+    const customLabelsY = ['100', '200', '300', '400'];
 
     $: d3.select(gy)
         .call(d3.axisLeft(y)
             .ticks(4)
-            .tickFormat((d, i) => customLabelsY[i]));
+            .tickFormat((d, i) => customLabelsY[i])
+            );
 
 
   
@@ -91,6 +85,8 @@
             return 'orange';
         } else if (hour >= 15) {
             return 'red';
+        } else if (hour >= 11) {
+            return 'purple';
         } else if (hour >= 6) {
             return 'blue';
         } else {
@@ -128,7 +124,7 @@
       <!-- axis-labels -->
       <g transform="translate({width / 2}, {height - marginBottom / 2 + 30})">
         <text
-            font-size="14px"
+            font-size="12px"
             font-family="Nunito, sans-serif" 
             fill="#000"
             text-anchor="middle"
@@ -139,7 +135,7 @@
       <!-- Y Axis Label -->
       <g transform="translate({marginLeft / 2}, {height / 2}) rotate(-90)">
         <text
-            font-size="14px"
+            font-size="12px"
             font-family="Nunito, sans-serif" 
             fill="#000"
             text-anchor="middle"
@@ -147,6 +143,52 @@
             riders per hour (thousands)
         </text>
         </g>
+      <!-- Text Labels -->
+        <text 
+        font-family="Nunito, sans-serif" 
+        font-size="10px"
+        x={width / 4 - 10} 
+        y={height/2 + 70}
+        text-anchor="middle" 
+        >
+            early morning
+        </text>
+        <text 
+        font-family="Nunito, sans-serif" 
+        font-size="10px"
+        x={width / 2 - 10} 
+        y={height/8 + 15}
+        text-anchor="middle" 
+        >
+            a.m. peak
+        </text>
+        <text 
+        font-family="Nunito, sans-serif" 
+        font-size="10px"
+        x={width / 2 + 20} 
+        y={height/2 + 40}
+        text-anchor="middle" 
+        >
+            midday
+        </text>
+        <text 
+        font-family="Nunito, sans-serif" 
+        font-size="10px"
+        x={width - 110} 
+        y={height/8 + 15}
+        text-anchor="middle" 
+        >
+            p.m. peak
+        </text>
+        <text 
+        font-family="Nunito, sans-serif" 
+        font-size="10px"
+        x={width - 50} 
+        y={height/2 + 40}
+        text-anchor="middle" 
+        >
+            evening
+        </text>
       <!-- Draw line chart -->
       <g stroke="#000" stroke-opacity="0.5">
         {#if typeof index !== 'undefined' && data[index]}
@@ -171,7 +213,6 @@
           />
         {/each}
         <!-- Dynamic vertical line -->
-    
         <line
           x1={data[index] ? x(data[index].date) : 0}
           y1={marginTop}
@@ -180,14 +221,22 @@
           stroke="#FF0000"
           stroke-width="2"
         />
-        <text font-weight="bold"
+        <text 
         font-family="Nunito, sans-serif" 
         font-size="12px"
         x={data[index] ? x(data[index].date) : 0}
         y={marginTop - 8}
         >
+        <tspan>
             {data[index].value} riders
-        </text>
+        </tspan>
+        <tspan 
+        x={data[index] ? x(data[index].date) : 0} dy="1.2em"
+        font-size="9px"
+        >
+            {d3.timeFormat('%I:%M %p')(data[index].date)}
+        </tspan>
+    </text>
       {/if}
 
       </g>
