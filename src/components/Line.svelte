@@ -26,20 +26,6 @@
     });
     data = data;    
     });
-    // {#if typeof index !== 'undefined'}
-    //     <line
-    //       x1={x(data[index].date)}
-    //       y1={marginTop}
-    //       x2={x(data[index].date)}
-    //       y2={height - marginBottom}
-    //       stroke="#FF0000"
-    //       stroke-width="2"
-    //     />
-    //   {/if}
-    $: console.log(typeof index !== 'undefined')
-    $: console.log(index)
-    
-
 
     $: x = scaleUtc()
         .domain(extent(data, d => d.date))
@@ -56,7 +42,8 @@
             x1: x(arr[i - 1].date),
             y1: y(arr[i - 1].value),
             x2: x(d.date),
-            y2: y(d.value)
+            y2: y(d.value),
+            color: customColor(d.date)
         };
         }).filter(d => d !== null); // Remove null values
     
@@ -93,6 +80,25 @@
     const width = 500; // Width of the chart
     const height = 200; // Height of the chart
 
+    // Custom color function
+    const customColor = (d) => {
+        // $: console.log(d >= Date.UTC(2024, 2, 1, 17 ))
+        // $: console.log(d3.timeFormat('%H')(d))
+        // $: console.log(hour > 12)
+        const hour = d3.timeFormat('%H')(d)
+
+        if (hour >= 18) {
+            return 'red';
+        } else if (hour >= 12) {
+            return 'orange';
+        } else if (hour >= 6) {
+            return 'blue';
+        } else {
+            return 'green';
+        }
+    };
+
+
   </script>
   
   <style>
@@ -122,6 +128,8 @@
       <!-- axis-labels -->
       <g transform="translate({width / 2}, {height - marginBottom / 2 + 30})">
         <text
+            font-size="14px"
+            font-family="Nunito, sans-serif" 
             fill="#000"
             text-anchor="middle"
         >
@@ -131,6 +139,8 @@
       <!-- Y Axis Label -->
       <g transform="translate({marginLeft / 2}, {height / 2}) rotate(-90)">
         <text
+            font-size="14px"
+            font-family="Nunito, sans-serif" 
             fill="#000"
             text-anchor="middle"
         >
@@ -139,6 +149,7 @@
         </g>
       <!-- Draw line chart -->
       <g stroke="#000" stroke-opacity="0.2">
+        {#if typeof index !== 'undefined' && data[index]}
         
         {#each lines as line, i}
                     <line
@@ -148,8 +159,9 @@
                         x2={line.x2}
                         y2={line.y2}
                         class="line"
-                    />
-                {/each}
+                        style="stroke: {line.color}; stroke-width: 3;"
+            />
+        {/each}
         {#each data as d, i}
           <circle
             key={i}
@@ -158,7 +170,8 @@
             r="2"
           />
         {/each}
-        {#if typeof index !== 'undefined' && data[index]}
+        <!-- Dynamic vertical line -->
+    
         <line
           x1={data[index] ? x(data[index].date) : 0}
           y1={marginTop}
@@ -167,7 +180,16 @@
           stroke="#FF0000"
           stroke-width="2"
         />
+        <text font-weight="bold"
+        font-family="Nunito, sans-serif" 
+        font-size="12px"
+        x={data[index] ? x(data[index].date) : 0}
+        y={marginTop}
+        >
+            {data[index].value} riders
+        </text>
       {/if}
+
       </g>
   
     </svg>
