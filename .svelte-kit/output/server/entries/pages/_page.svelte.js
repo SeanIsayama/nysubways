@@ -1,4 +1,6 @@
-import { n as noop, c as create_ssr_component, b as add_attribute, e as escape, d as assign, i as identity, a as subscribe, f as each, v as validate_component } from "../../chunks/ssr.js";
+import { n as noop, c as create_ssr_component, b as add_attribute, e as escape, d as each, f as assign, i as identity, a as subscribe, v as validate_component } from "../../chunks/ssr.js";
+import * as d3 from "d3";
+import { scaleUtc, extent, scaleLinear } from "d3";
 import mapboxgl from "mapbox-gl";
 import { geoMercator } from "d3-geo";
 import { w as writable } from "../../chunks/index.js";
@@ -29,7 +31,7 @@ function loop(callback) {
     }
   };
 }
-const css$3 = {
+const css$4 = {
   code: "svelte-scroller-outer.svelte-1yjh2jm{display:block;position:relative}svelte-scroller-background.svelte-1yjh2jm{display:block;position:relative;width:100%}svelte-scroller-foreground.svelte-1yjh2jm{display:block;position:relative;z-index:2}svelte-scroller-foreground.svelte-1yjh2jm::after{content:' ';display:block;clear:both}svelte-scroller-background-container.svelte-1yjh2jm{display:block;position:absolute;width:100%;max-width:100%;pointer-events:none;will-change:transform}",
   map: null
 };
@@ -99,7 +101,7 @@ const Scroller = create_ssr_component(($$result, $$props, $$bindings, slots) => 
     $$bindings.progress(progress);
   if ($$props.visible === void 0 && $$bindings.visible && visible !== void 0)
     $$bindings.visible(visible);
-  $$result.css.add(css$3);
+  $$result.css.add(css$4);
   style = `
 		position: ${"absolute"};
 		top: 0;
@@ -109,8 +111,8 @@ const Scroller = create_ssr_component(($$result, $$props, $$bindings, slots) => 
   widthStyle = "";
   return ` <svelte-scroller-outer class="svelte-1yjh2jm"${add_attribute("this", outer, 0)}><svelte-scroller-background-container class="background-container svelte-1yjh2jm" style="${escape(style, true) + escape(widthStyle, true)}"><svelte-scroller-background class="svelte-1yjh2jm"${add_attribute("this", background, 0)}>${slots.background ? slots.background({}) : ``}</svelte-scroller-background></svelte-scroller-background-container> <svelte-scroller-foreground class="svelte-1yjh2jm"${add_attribute("this", foreground, 0)}>${slots.foreground ? slots.foreground({}) : ``}</svelte-scroller-foreground> </svelte-scroller-outer>`;
 });
-const css$2 = {
-  code: ".map.svelte-1vt13cv{width:100%;height:100vh;position:absolute;opacity:0;visibility:hidden;-webkit-transition:opacity 2s, visibility 2s;transition:opacity 2s, visibility 2s;outline:blue solid 3px}.map.visible.svelte-1vt13cv{opacity:1;visibility:visible}",
+const css$3 = {
+  code: ".map.svelte-19f1tf7{width:50%;height:100vh;position:absolute;opacity:0;visibility:hidden;-webkit-transition:opacity 2s, visibility 2s;transition:opacity 2s, visibility 2s;outline:rgb(255, 255, 255) solid 3px}.map.visible.svelte-19f1tf7{opacity:1;visibility:visible}",
   map: null
 };
 const Map$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -122,8 +124,57 @@ const Map$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     $$bindings.index(index);
   if ($$props.geoJsonToFit === void 0 && $$bindings.geoJsonToFit && geoJsonToFit !== void 0)
     $$bindings.geoJsonToFit(geoJsonToFit);
+  $$result.css.add(css$3);
+  return `${$$result.head += `<!-- HEAD_svelte-1s9kg0l_START --><link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v2.14.0/mapbox-gl.css"><!-- HEAD_svelte-1s9kg0l_END -->`, ""} <div class="${["map svelte-19f1tf7", "visible"].join(" ").trim()}"${add_attribute("this", container, 0)}></div>`;
+});
+const css$2 = {
+  code: ".chart.svelte-126meop{position:absolute;top:100px;right:100px;width:500px;height:250px;border:1px solid #ccc}.line.svelte-126meop{fill:none;stroke:steelblue;stroke-width:2}",
+  map: null
+};
+const marginTop = 20;
+const marginRight = 50;
+const marginBottom = 20;
+const marginLeft = 80;
+const width = 500;
+const height = 200;
+const Line = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let max;
+  let gx;
+  let gy;
+  let x, y;
+  let lines = [];
+  let data = [];
+  const customLabelsX = ["1 am", "4 am", "7 am", "10 am", "1 pm", "4 pm", "7 pm", "10 pm"];
+  const customLabelsY = ["50", "100", "150", "200", "250"];
   $$result.css.add(css$2);
-  return `${$$result.head += `<!-- HEAD_svelte-1s9kg0l_START --><link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v2.14.0/mapbox-gl.css"><!-- HEAD_svelte-1s9kg0l_END -->`, ""} <div class="${["map svelte-1vt13cv", "visible"].join(" ").trim()}"${add_attribute("this", container, 0)}></div>`;
+  {
+    console.log(data);
+  }
+  x = scaleUtc().domain(extent(data, (d) => d.date)).range([marginLeft, width - marginRight]);
+  y = scaleLinear().domain(extent(data, (d) => d.value)).range([height - marginBottom, marginTop]);
+  lines = data.map((d, i, arr) => {
+    if (i === 0)
+      return null;
+    return {
+      x1: x(arr[i - 1].date),
+      y1: y(arr[i - 1].value),
+      x2: x(d.date),
+      y2: y(d.value)
+    };
+  }).filter((d) => d !== null);
+  max = d3.max(data, (d) => Math.abs(d.value));
+  d3.scaleSequential().domain([max, -max]).interpolator(d3.interpolateRdBu);
+  {
+    d3.select(gx).call(d3.axisBottom(x).ticks(8).tickFormat((d, i) => customLabelsX[i]));
+  }
+  {
+    d3.select(gy).call(d3.axisLeft(y).ticks(4).tickFormat((d, i) => customLabelsY[i]));
+  }
+  return `<div class="chart svelte-126meop"><svg${add_attribute("width", width, 0)}${add_attribute("height", height + 50, 0)}><g transform="${"translate(0," + escape(height - marginBottom, true) + ")"}"${add_attribute("this", gx, 0)}></g><g transform="${"translate(" + escape(marginLeft, true) + ",0)"}"${add_attribute("this", gy, 0)}></g><g transform="${"translate(" + escape(width / 2, true) + ", " + escape(height - marginBottom / 2 + 30, true) + ")"}"><text fill="#000" text-anchor="middle">time of day</text></g><g transform="${"translate(" + escape(marginLeft / 2, true) + ", " + escape(height / 2, true) + ") rotate(-90)"}"><text fill="#000" text-anchor="middle">riders per hour (thousands)</text></g><g stroke="#000" stroke-opacity="0.2">${each(lines, (line, i) => {
+    return `<line${add_attribute("key", i, 0)}${add_attribute("x1", line.x1, 0)}${add_attribute("y1", line.y1, 0)}${add_attribute("x2", line.x2, 0)}${add_attribute("y2", line.y2, 0)} class="line svelte-126meop"></line>`;
+  })}${each(data, (d, i) => {
+    return `<circle${add_attribute("key", i, 0)}${add_attribute("cx", x(d.date), 0)}${add_attribute("cy", y(d.value), 0)} r="2"></circle>`;
+  })}</g></svg></div>`;
 });
 function cubicOut(t) {
   const f = t - 1;
@@ -1013,7 +1064,7 @@ const Graph = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let pointsStringR2;
   let pointsStringR3;
   let $strokeWidth, $$unsubscribe_strokeWidth;
-  let { index, width, height, projection } = $$props;
+  let { index, width: width2, height: height2, projection } = $$props;
   const filter_troopsAttack1 = (feature) => {
     return feature.properties.direction === "A" && feature.properties.group === 1;
   };
@@ -1042,10 +1093,10 @@ const Graph = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$unsubscribe_strokeWidth = subscribe(strokeWidth, (value) => $strokeWidth = value);
   if ($$props.index === void 0 && $$bindings.index && index !== void 0)
     $$bindings.index(index);
-  if ($$props.width === void 0 && $$bindings.width && width !== void 0)
-    $$bindings.width(width);
-  if ($$props.height === void 0 && $$bindings.height && height !== void 0)
-    $$bindings.height(height);
+  if ($$props.width === void 0 && $$bindings.width && width2 !== void 0)
+    $$bindings.width(width2);
+  if ($$props.height === void 0 && $$bindings.height && height2 !== void 0)
+    $$bindings.height(height2);
   if ($$props.projection === void 0 && $$bindings.projection && projection !== void 0)
     $$bindings.projection(projection);
   $$result.css.add(css$1);
@@ -1101,13 +1152,13 @@ const Graph = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   })}` : ``}</svg>`;
 });
 const css = {
-  code: ".background.svelte-aeqg70{width:50%;height:100vh;position:relative;outline:green solid 3px}.foreground.svelte-aeqg70{width:50%;position:relative;left:50%;padding-top:500px}section.svelte-aeqg70{position:relative;height:20vh;background-color:white;outline:black solid 3px;color:black;padding-left:60px;margin:0 0 0 em 0;border-left:3px solid black}.hour-label.svelte-aeqg70{position:absolute;left:-60px;top:0%;-webkit-transform:translateY(-50%);transform:translateY(-50%);padding:0 10px}.stations-container.svelte-aeqg70{position:absolute;top:500;left:-60;width:100%;height:calc(100%-500px);z-index:10;pointer-events:none}.station.svelte-aeqg70{position:absolute;width:2px;height:calc(100% - 500px);background-color:black;z-index:5}.station-label.svelte-aeqg70{position:absolute;top:0;background-color:white;padding:0 5px;z-index:15}.station-line.svelte-aeqg70{position:absolute;top:0;bottom:0;background-color:black;z-index:20}",
+  code: ".background.svelte-1f9qrg4{width:100%;height:100vh;position:relative;outline:green solid 3px}.foreground.svelte-1f9qrg4{width:10%;position:relative;left:100%;padding-top:500px}section.svelte-1f9qrg4{position:relative;height:20vh;background-color:white;outline:black solid 3px;color:black;padding-left:60px;margin:0 0 0 em 0;border-left:3px solid black}.hour-label.svelte-1f9qrg4{position:absolute;left:-60px;top:0%;-webkit-transform:translateY(-50%);transform:translateY(-50%);padding:0 10px}.stations-container.svelte-1f9qrg4{position:absolute;top:500;left:-60;width:100%;height:calc(100%-500px)}.station.svelte-1f9qrg4{position:absolute;width:2px;height:calc(100% - 500px);background-color:black}.station-label.svelte-1f9qrg4{position:absolute;top:0;background-color:white;padding:0 5px}.station-line.svelte-1f9qrg4{position:absolute;top:0;bottom:0;background-color:black}",
   map: null
 };
 const ScrollyTeller = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let projection;
   let count, index, offset, progress;
-  let width, height;
+  let width2, height2;
   let geoJsonToFit = {
     type: "FeatureCollection",
     features: [
@@ -1128,7 +1179,7 @@ const ScrollyTeller = create_ssr_component(($$result, $$props, $$bindings, slots
   do {
     $$settled = true;
     $$result.head = previous_head;
-    projection = geoMercator().fitSize([width, height], geoJsonToFit);
+    projection = geoMercator().fitSize([width2, height2], geoJsonToFit);
     $$rendered = `${validate_component(Scroller, "Scroller").$$render(
       $$result,
       {
@@ -1160,14 +1211,14 @@ const ScrollyTeller = create_ssr_component(($$result, $$props, $$bindings, slots
       },
       {
         foreground: () => {
-          return `<div class="foreground svelte-aeqg70" slot="foreground"><div class="stations-container svelte-aeqg70">${each(["Station 1", "Station 2", "Station 3"], (station, i) => {
-            return `<div class="station svelte-aeqg70" style="${"left: " + escape(i * 33, true) + "%;"}"> <span class="station-label svelte-aeqg70">${escape(station)}</span> <div class="station-line svelte-aeqg70"></div> </div>`;
+          return `<div class="foreground svelte-1f9qrg4" slot="foreground"><div class="stations-container svelte-1f9qrg4">${each(["Station 1", "Station 2", "Station 3"], (station, i) => {
+            return `<div class="station svelte-1f9qrg4" style="${"left: " + escape(i * 33, true) + "%;"}"><span class="station-label svelte-1f9qrg4">${escape(station)}</span> <div class="station-line svelte-1f9qrg4"></div> </div>`;
           })}</div> ${each(Array(24), (_, i) => {
-            return `<section class="svelte-aeqg70"><span class="hour-label svelte-aeqg70">${escape(i === 0 ? "12 AM" : i < 12 ? `${i} AM` : i === 12 ? "12 PM" : `${i - 12} PM`)}</span>  </section>`;
+            return `<section class="svelte-1f9qrg4"><span class="hour-label svelte-1f9qrg4">${escape(i === 0 ? "12 AM" : i < 12 ? `${i} AM` : i === 12 ? "12 PM" : `${i - 12} PM`)}</span> </section>`;
           })}</div>`;
         },
         background: () => {
-          return `<div class="background svelte-aeqg70" slot="background">${validate_component(Map$1, "Map").$$render(
+          return `<div class="background svelte-1f9qrg4" slot="background">${validate_component(Map$1, "Map").$$render(
             $$result,
             { index, geoJsonToFit },
             {
@@ -1177,7 +1228,7 @@ const ScrollyTeller = create_ssr_component(($$result, $$props, $$bindings, slots
               }
             },
             {}
-          )} ${validate_component(Graph, "Graph").$$render($$result, { index, width, height, projection }, {}, {})} <div class="progress-bars"><p>current hour: <strong>${escape(index + 1)}/${escape(count)}</strong></p> <progress${add_attribute("value", count ? (index + 1) / count : 0, 0)}></progress> <p data-svelte-h="svelte-1l3bttw">offset in current section</p> <progress${add_attribute("value", offset || 0, 0)}></progress> <p data-svelte-h="svelte-1tgmlrf">total progress</p> <progress${add_attribute("value", progress || 0, 0)}></progress></div></div>`;
+          )} ${validate_component(Line, "Line").$$render($$result, {}, {}, {})} ${validate_component(Graph, "Graph").$$render($$result, { index, width: width2, height: height2, projection }, {}, {})} <div class="progress-bars"><p>current hour: <strong>${escape(index + 1)}/${escape(count)}</strong></p> <progress${add_attribute("value", count ? (index + 1) / count : 0, 0)}></progress> <p data-svelte-h="svelte-1l3bttw">offset in current section</p> <progress${add_attribute("value", offset || 0, 0)}></progress> <p data-svelte-h="svelte-1tgmlrf">total progress</p> <progress${add_attribute("value", progress || 0, 0)}></progress></div></div>`;
         }
       }
     )}`;

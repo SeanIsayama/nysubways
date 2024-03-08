@@ -1,6 +1,9 @@
 <script>
+  import * as d3 from 'd3';
+  import { onMount } from 'svelte';
   import Scroller from "@sveltejs/svelte-scroller";
   import Map from "./Map.svelte";
+  import Line from "./Line.svelte";
   import { geoMercator } from "d3-geo";
   import Graph from "./Graph.svelte";
 
@@ -28,6 +31,7 @@
   };
 
   $: projection = geoMercator().fitSize([width, height], geoJsonToFit);
+
 </script>
 
 <Scroller
@@ -45,6 +49,7 @@
    bind:clientHeight={height}
    >
     <Map bind:geoJsonToFit {index} />
+    <Line/>
     <Graph {index} {width} {height} {projection} />
     <div class="progress-bars">
       <p>current hour: <strong>{index + 1}/{count}</strong></p>
@@ -58,11 +63,11 @@
     </div>
 
   </div>
-
+  
   <div class="foreground" slot="foreground">
     <div class="stations-container">
       {#each ['Station 1', 'Station 2', 'Station 3'] as station, i}
-        <div class="station" style="left: {i * 33}%;"> <!-- Example for 3 stations -->
+        <div class="station" style="left: {i * 33}%;">
           <span class="station-label">{station}</span>
           <div class="station-line"></div>
         </div>
@@ -72,12 +77,9 @@
     {#each Array(24) as _, i}
       <section>
         <span class="hour-label">{i === 0 ? '12 AM' : (i < 12 ? `${i} AM` : i === 12 ? '12 PM' : `${i - 12} PM`)}</span>
-        <!-- Other content for each hour section -->
       </section>
     {/each}
   </div>
-  
-  
   
   
   
@@ -85,16 +87,16 @@
 
 <style>
   .background {
-    width: 50%;
+    width: 100%;
     height: 100vh;
     position: relative;
     outline: green solid 3px;
   }
 
   .foreground {
-  width: 50%;
+  width: 10%;
   position: relative;
-  left: 50%;
+  left: 100%;
   padding-top: 500px; /* Space on top */
   }
 
@@ -123,8 +125,8 @@
   left: -60; /* Align with the left edge of the foreground */
   width: 100%; /* Take up the full width of the foreground */
   height: calc(100%-500px); /* Take up the full height of the foreground */
-  z-index: 10; /* Ensure it's above the sections */
-  pointer-events: none; /* Allows clicks to pass through */
+  /* z-index: 10; Ensure it's above the sections */
+  /* pointer-events: none; Allows clicks to pass through */
 }
 
 .station {
@@ -132,7 +134,7 @@
   width: 2px; /* Width of the vertical line */
   height: calc(100% - 500px); /* Adjust the height to start just below the hour labels */
   background-color: black; /* Color of the line */
-  z-index: 5; /* Below the labels but above the sections */
+  /* z-index: 5; Below the labels but above the sections */
 }
 
 .station-label {
@@ -140,7 +142,7 @@
   top: 0; /* Position at the top of the stations container */
   background-color: white; /* Background of the labels for readability */
   padding: 0 5px;
-  z-index: 15; /* Above everything */
+  /* z-index: 15; Above everything */
 }
 
 .station-line {
@@ -148,7 +150,7 @@
   top: 0; /* Start at the top of the stations container */
   bottom: 0; /* Stretch to the bottom of the stations container */
   background-color: black; /* Color of the line */
-  z-index: 20;
+  /* z-index: 20; */
 }
 
 

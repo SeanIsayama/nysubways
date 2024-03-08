@@ -118,13 +118,13 @@
 
 <style>
   .map {
-    width: 100%;
+    width: 50%;
     height: 100vh; /* check problem when setting width */
     position: absolute;
     opacity: 0;
     visibility: hidden;
     transition: opacity 2s, visibility 2s;
-    outline: blue solid 3px;
+    outline: rgb(255, 255, 255) solid 3px;
   }
 
   .map.visible {

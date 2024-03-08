@@ -1,11 +1,11 @@
 {
   ".svelte-kit/generated/server/internal.js": {
     "file": "internal.js",
+    "src": ".svelte-kit/generated/server/internal.js",
+    "isEntry": true,
     "imports": [
       "_internal.js"
-    ],
-    "isEntry": true,
-    "src": ".svelte-kit/generated/server/internal.js"
+    ]
   },
   "_exports.js": {
     "file": "chunks/exports.js"
@@ -27,46 +27,46 @@
   },
   "node_modules/@sveltejs/kit/src/runtime/components/error.svelte": {
     "file": "entries/fallbacks/error.svelte.js",
+    "src": "node_modules/@sveltejs/kit/src/runtime/components/error.svelte",
+    "isEntry": true,
     "imports": [
       "_ssr.js",
       "_exports.js"
-    ],
-    "isEntry": true,
-    "src": "node_modules/@sveltejs/kit/src/runtime/components/error.svelte"
+    ]
   },
   "node_modules/@sveltejs/kit/src/runtime/components/layout.svelte": {
     "file": "entries/fallbacks/layout.svelte.js",
+    "src": "node_modules/@sveltejs/kit/src/runtime/components/layout.svelte",
+    "isEntry": true,
     "imports": [
       "_ssr.js"
-    ],
-    "isEntry": true,
-    "src": "node_modules/@sveltejs/kit/src/runtime/components/layout.svelte"
+    ]
   },
   "node_modules/@sveltejs/kit/src/runtime/server/index.js": {
     "file": "index.js",
+    "src": "node_modules/@sveltejs/kit/src/runtime/server/index.js",
+    "isEntry": true,
     "imports": [
       "_internal.js",
       "_exports.js",
       "_index.js"
-    ],
-    "isEntry": true,
-    "src": "node_modules/@sveltejs/kit/src/runtime/server/index.js"
+    ]
   },
   "src/routes/+layout.js": {
     "file": "entries/pages/_layout.js",
-    "isEntry": true,
-    "src": "src/routes/+layout.js"
+    "src": "src/routes/+layout.js",
+    "isEntry": true
   },
   "src/routes/+page.svelte": {
-    "css": [
-      "_app/immutable/assets/_page.cBMNfrIs.css"
-    ],
     "file": "entries/pages/_page.svelte.js",
+    "src": "src/routes/+page.svelte",
+    "isEntry": true,
     "imports": [
       "_ssr.js",
       "_index.js"
     ],
-    "isEntry": true,
-    "src": "src/routes/+page.svelte"
+    "css": [
+      "_app/immutable/assets/_page.pw3K9l5X.css"
+    ]
   }
 }
