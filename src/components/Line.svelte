@@ -87,10 +87,10 @@
         // $: console.log(hour > 12)
         const hour = d3.timeFormat('%H')(d)
 
-        if (hour >= 18) {
-            return 'red';
-        } else if (hour >= 12) {
+        if (hour >= 20) {
             return 'orange';
+        } else if (hour >= 15) {
+            return 'red';
         } else if (hour >= 6) {
             return 'blue';
         } else {
@@ -148,7 +148,7 @@
         </text>
         </g>
       <!-- Draw line chart -->
-      <g stroke="#000" stroke-opacity="0.2">
+      <g stroke="#000" stroke-opacity="0.5">
         {#if typeof index !== 'undefined' && data[index]}
         
         {#each lines as line, i}
@@ -184,7 +184,7 @@
         font-family="Nunito, sans-serif" 
         font-size="12px"
         x={data[index] ? x(data[index].date) : 0}
-        y={marginTop}
+        y={marginTop - 8}
         >
             {data[index].value} riders
         </text>

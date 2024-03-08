@@ -121,10 +121,10 @@ const Line = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   const customLabelsY = ["50", "100", "150", "200", "250"];
   const customColor = (d) => {
     const hour = d3.timeFormat("%H")(d);
-    if (hour >= 18) {
-      return "red";
-    } else if (hour >= 12) {
+    if (hour >= 20) {
       return "orange";
+    } else if (hour >= 15) {
+      return "red";
     } else if (hour >= 6) {
       return "blue";
     } else {
@@ -155,11 +155,11 @@ const Line = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   {
     d3.select(gy).call(d3.axisLeft(y).ticks(4).tickFormat((d, i) => customLabelsY[i]));
   }
-  return `<div class="chart svelte-126meop"><svg${add_attribute("width", width, 0)}${add_attribute("height", height + 50, 0)}><g transform="${"translate(0," + escape(height - marginBottom, true) + ")"}"${add_attribute("this", gx, 0)}></g><g transform="${"translate(" + escape(marginLeft, true) + ",0)"}"${add_attribute("this", gy, 0)}></g><g transform="${"translate(" + escape(width / 2, true) + ", " + escape(height - marginBottom / 2 + 30, true) + ")"}"><text font-size="14px" font-family="Nunito, sans-serif" fill="#000" text-anchor="middle">time of day</text></g><g transform="${"translate(" + escape(marginLeft / 2, true) + ", " + escape(height / 2, true) + ") rotate(-90)"}"><text font-size="14px" font-family="Nunito, sans-serif" fill="#000" text-anchor="middle">riders per hour (thousands)</text></g><g stroke="#000" stroke-opacity="0.2">${typeof index !== "undefined" && data[index] ? `${each(lines, (line, i) => {
+  return `<div class="chart svelte-126meop"><svg${add_attribute("width", width, 0)}${add_attribute("height", height + 50, 0)}><g transform="${"translate(0," + escape(height - marginBottom, true) + ")"}"${add_attribute("this", gx, 0)}></g><g transform="${"translate(" + escape(marginLeft, true) + ",0)"}"${add_attribute("this", gy, 0)}></g><g transform="${"translate(" + escape(width / 2, true) + ", " + escape(height - marginBottom / 2 + 30, true) + ")"}"><text font-size="14px" font-family="Nunito, sans-serif" fill="#000" text-anchor="middle">time of day</text></g><g transform="${"translate(" + escape(marginLeft / 2, true) + ", " + escape(height / 2, true) + ") rotate(-90)"}"><text font-size="14px" font-family="Nunito, sans-serif" fill="#000" text-anchor="middle">riders per hour (thousands)</text></g><g stroke="#000" stroke-opacity="0.5">${typeof index !== "undefined" && data[index] ? `${each(lines, (line, i) => {
     return `<line${add_attribute("key", i, 0)}${add_attribute("x1", line.x1, 0)}${add_attribute("y1", line.y1, 0)}${add_attribute("x2", line.x2, 0)}${add_attribute("y2", line.y2, 0)} class="line svelte-126meop" style="${"stroke: " + escape(line.color, true) + "; stroke-width: 3;"}"></line>`;
   })} ${each(data, (d, i) => {
     return `<circle${add_attribute("key", i, 0)}${add_attribute("cx", x(d.date), 0)}${add_attribute("cy", y(d.value), 0)} r="2"></circle>`;
-  })}  <line${add_attribute("x1", data[index] ? x(data[index].date) : 0, 0)}${add_attribute("y1", marginTop, 0)}${add_attribute("x2", data[index] ? x(data[index].date) : 0, 0)}${add_attribute("y2", height - marginBottom, 0)} stroke="#FF0000" stroke-width="2"></line> <text font-weight="bold" font-family="Nunito, sans-serif" font-size="12px"${add_attribute("x", data[index] ? x(data[index].date) : 0, 0)}${add_attribute("y", marginTop, 0)}>${escape(data[index].value)} riders</text>` : ``}</g></svg></div>`;
+  })}  <line${add_attribute("x1", data[index] ? x(data[index].date) : 0, 0)}${add_attribute("y1", marginTop, 0)}${add_attribute("x2", data[index] ? x(data[index].date) : 0, 0)}${add_attribute("y2", height - marginBottom, 0)} stroke="#FF0000" stroke-width="2"></line> <text font-weight="bold" font-family="Nunito, sans-serif" font-size="12px"${add_attribute("x", data[index] ? x(data[index].date) : 0, 0)}${add_attribute("y", marginTop - 8, 0)}>${escape(data[index].value)} riders</text>` : ``}</g></svg></div>`;
 });
 const css = {
   code: ".background.svelte-pvjtau{width:100%;height:100vh;position:relative;outline:rgb(255, 255, 255) solid 3px}.foreground.svelte-pvjtau{width:10%;position:relative;left:100%;padding-top:500px}section.svelte-pvjtau{position:relative;height:20vh;background-color:white;outline:black solid 3px;color:black;padding-left:60px;margin:0 0 0 em 0;border-left:3px solid black}.hour-label.svelte-pvjtau{position:absolute;left:-60px;top:0%;-webkit-transform:translateY(-50%);transform:translateY(-50%);padding:0 10px}.stations-container.svelte-pvjtau{position:absolute;top:500;left:-60;width:100%;height:calc(100%-500px)}.station.svelte-pvjtau{position:absolute;width:2px;height:calc(100% - 500px);background-color:black}.station-label.svelte-pvjtau{position:absolute;top:0;background-color:white;padding:0 5px}.station-line.svelte-pvjtau{position:absolute;top:0;bottom:0;background-color:black}.progress-bars.svelte-pvjtau{position:absolute;top:10px;left:10px;z-index:999}",
