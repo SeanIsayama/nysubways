@@ -14,7 +14,7 @@
 
     onMount(async () => {
     const res = await fetch(
-        '../../src/data/ridership_by_hour.csv',
+        'https://raw.githubusercontent.com/SeanIsayama/nysubways/main/src/data/ridership_by_hour.csv',
     );
     const csv = await res.text();
     await d3.csvParse(csv, (d, i, columns) => {
