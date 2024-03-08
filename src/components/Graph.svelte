@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
   import { fly, draw } from "svelte/transition";
   import { tweened } from "svelte/motion";
   import { cubicOut, cubicInOut } from "svelte/easing";
@@ -46,103 +46,103 @@
   //   }
   // }
 
-  // Define your filter condition
-  const filter_troopsAttack1 = (feature) => {
-    return (
-      feature.properties.direction === "A" && feature.properties.group === 1
-    );
-  };
-  const filter_troopsAttack2 = (feature) => {
-    return (
-      feature.properties.direction === "A" && feature.properties.group === 2
-    );
-  };
-  const filter_troopsAttack3 = (feature) => {
-    return (
-      feature.properties.direction === "A" && feature.properties.group === 3
-    );
-  };
-  const filter_troopsRetreat1 = (feature) => {
-    return (
-      feature.properties.direction === "R" && feature.properties.group === 1
-    );
-  };
-  const filter_troopsRetreat2 = (feature) => {
-    return (
-      feature.properties.direction === "R" && feature.properties.group === 2
-    );
-  };
-  const filter_troopsRetreat3 = (feature) => {
-    return (
-      feature.properties.direction === "R" && feature.properties.group === 3
-    );
-  };
+  // // Define your filter condition
+  // const filter_troopsAttack1 = (feature) => {
+  //   return (
+  //     feature.properties.direction === "A" && feature.properties.group === 1
+  //   );
+  // };
+  // const filter_troopsAttack2 = (feature) => {
+  //   return (
+  //     feature.properties.direction === "A" && feature.properties.group === 2
+  //   );
+  // };
+  // const filter_troopsAttack3 = (feature) => {
+  //   return (
+  //     feature.properties.direction === "A" && feature.properties.group === 3
+  //   );
+  // };
+  // const filter_troopsRetreat1 = (feature) => {
+  //   return (
+  //     feature.properties.direction === "R" && feature.properties.group === 1
+  //   );
+  // };
+  // const filter_troopsRetreat2 = (feature) => {
+  //   return (
+  //     feature.properties.direction === "R" && feature.properties.group === 2
+  //   );
+  // };
+  // const filter_troopsRetreat3 = (feature) => {
+  //   return (
+  //     feature.properties.direction === "R" && feature.properties.group === 3
+  //   );
+  // };
 
-  // Filter the features
-  const troopsAttack1 = troops.features.filter(filter_troopsAttack1);
-  const troopsAttack2 = troops.features.filter(filter_troopsAttack2);
-  const troopsAttack3 = troops.features.filter(filter_troopsAttack3);
+  // // Filter the features
+  // const troopsAttack1 = troops.features.filter(filter_troopsAttack1);
+  // const troopsAttack2 = troops.features.filter(filter_troopsAttack2);
+  // const troopsAttack3 = troops.features.filter(filter_troopsAttack3);
 
-  const troopsRetreat1 = troops.features.filter(filter_troopsRetreat1);
-  const troopsRetreat2 = troops.features.filter(filter_troopsRetreat2);
-  const troopsRetreat3 = troops.features.filter(filter_troopsRetreat3);
+  // const troopsRetreat1 = troops.features.filter(filter_troopsRetreat1);
+  // const troopsRetreat2 = troops.features.filter(filter_troopsRetreat2);
+  // const troopsRetreat3 = troops.features.filter(filter_troopsRetreat3);
 
 
-  // Create the string of coordinates
-  $: pointsStringA1 = troopsAttack1
-    .map((feature) => {
-      const transformedCoordinates = projection(feature.geometry.coordinates);
-      return transformedCoordinates.join(",");
-    })
-    .join(" ");
-  $: pointsStringA2 = troopsAttack2
-  .map((feature) => {
-    const transformedCoordinates = projection(feature.geometry.coordinates);
-    return transformedCoordinates.join(",");
-  })
-  .join(" ");
-  $: pointsStringA3 = troopsAttack3
-    .map((feature) => {
-      const transformedCoordinates = projection(feature.geometry.coordinates);
-      return transformedCoordinates.join(",");
-    })
-    .join(" ");
+  // // Create the string of coordinates
+  // $: pointsStringA1 = troopsAttack1
+  //   .map((feature) => {
+  //     const transformedCoordinates = projection(feature.geometry.coordinates);
+  //     return transformedCoordinates.join(",");
+  //   })
+  //   .join(" ");
+  // $: pointsStringA2 = troopsAttack2
+  // .map((feature) => {
+  //   const transformedCoordinates = projection(feature.geometry.coordinates);
+  //   return transformedCoordinates.join(",");
+  // })
+  // .join(" ");
+  // $: pointsStringA3 = troopsAttack3
+  //   .map((feature) => {
+  //     const transformedCoordinates = projection(feature.geometry.coordinates);
+  //     return transformedCoordinates.join(",");
+  //   })
+  //   .join(" ");
 
-    $: pointsStringR1 = troopsRetreat1
-    .map((feature) => {
-      const transformedCoordinates = projection(feature.geometry.coordinates);
-      return transformedCoordinates.join(",");
-    })
-    .join(" ");
-  $: pointsStringR2 = troopsRetreat2
-  .map((feature) => {
-    const transformedCoordinates = projection(feature.geometry.coordinates);
-    return transformedCoordinates.join(",");
-  })
-  .join(" ");
-  $: pointsStringR3 = troopsRetreat3
-    .map((feature) => {
-      const transformedCoordinates = projection(feature.geometry.coordinates);
-      return transformedCoordinates.join(",");
-    })
-    .join(" ");
+  //   $: pointsStringR1 = troopsRetreat1
+  //   .map((feature) => {
+  //     const transformedCoordinates = projection(feature.geometry.coordinates);
+  //     return transformedCoordinates.join(",");
+  //   })
+  //   .join(" ");
+  // $: pointsStringR2 = troopsRetreat2
+  // .map((feature) => {
+  //   const transformedCoordinates = projection(feature.geometry.coordinates);
+  //   return transformedCoordinates.join(",");
+  // })
+  // .join(" ");
+  // $: pointsStringR3 = troopsRetreat3
+  //   .map((feature) => {
+  //     const transformedCoordinates = projection(feature.geometry.coordinates);
+  //     return transformedCoordinates.join(",");
+  //   })
+  //   .join(" ");
 
-    let strokeWidth = tweened(1, { duration: 5000, easing: cubicOut });
+  //   let strokeWidth = tweened(1, { duration: 5000, easing: cubicOut });
 
-    // Reactive statement to update stroke-width when condition changes
-    $: {
-      if (index > 4) {
-        strokeWidth.set(10); // Set stroke-width to 10 when condition is true
-      }
+  //   // Reactive statement to update stroke-width when condition changes
+  //   $: {
+  //     if (index > 4) {
+  //       strokeWidth.set(10); // Set stroke-width to 10 when condition is true
+  //     }
 
-      if (index <= 4) {
-        strokeWidth.set(0); // Set stroke-width to 1 when condition is false
-      }
-    }
+  //     if (index <= 4) {
+  //       strokeWidth.set(0); // Set stroke-width to 1 when condition is false
+  //     }
+  //   }
 
 </script>
 
-<svg class="graph">
+<!-- <svg class="graph">
   {#if index > 0}
     {#if index > 2}
       <polyline
@@ -297,4 +297,4 @@
       position: absolute;
       outline: rgb(255, 255, 255) solid 7px;
     }
-  </style>
+  </style> --> -->

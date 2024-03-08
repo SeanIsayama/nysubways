@@ -3,6 +3,7 @@
     import * as d3 from 'd3';
     import { onMount } from 'svelte';
     import { scaleLinear, scaleUtc, extent } from 'd3';
+    export let index;
   
     // Data
     let gx;
@@ -25,7 +26,19 @@
     });
     data = data;    
     });
-    $: console.log(data)
+    // {#if typeof index !== 'undefined'}
+    //     <line
+    //       x1={x(data[index].date)}
+    //       y1={marginTop}
+    //       x2={x(data[index].date)}
+    //       y2={height - marginBottom}
+    //       stroke="#FF0000"
+    //       stroke-width="2"
+    //     />
+    //   {/if}
+    $: console.log(typeof index !== 'undefined')
+    $: console.log(index)
+    
 
 
     $: x = scaleUtc()
@@ -126,6 +139,7 @@
         </g>
       <!-- Draw line chart -->
       <g stroke="#000" stroke-opacity="0.2">
+        
         {#each lines as line, i}
                     <line
                         key={i}
@@ -144,6 +158,16 @@
             r="2"
           />
         {/each}
+        {#if typeof index !== 'undefined' && data[index]}
+        <line
+          x1={data[index] ? x(data[index].date) : 0}
+          y1={marginTop}
+          x2={data[index] ? x(data[index].date) : 0}
+          y2={height - marginBottom}
+          stroke="#FF0000"
+          stroke-width="2"
+        />
+      {/if}
       </g>
   
     </svg>

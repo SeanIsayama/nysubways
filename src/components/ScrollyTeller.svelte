@@ -49,17 +49,11 @@
    bind:clientHeight={height}
    >
     <Map bind:geoJsonToFit {index} />
-    <Line/>
-    <Graph {index} {width} {height} {projection} />
+    <Line {index}/>
+    <!-- <Graph {index} {width} {height} {projection} /> -->
     <div class="progress-bars">
       <p>current hour: <strong>{index + 1}/{count}</strong></p>
       <progress value={count ? (index + 1) / count : 0} />
-
-      <p>offset in current section</p>
-      <progress value={offset || 0} />
-
-      <p>total progress</p>
-      <progress value={progress || 0} />
     </div>
 
   </div>
@@ -152,6 +146,12 @@
   background-color: black; /* Color of the line */
   /* z-index: 20; */
 }
+.progress-bars {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 999; /* Adjust the z-index value as needed */
+  }
 
 
 </style>

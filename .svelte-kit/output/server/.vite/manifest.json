@@ -10,12 +10,6 @@
   "_exports.js": {
     "file": "chunks/exports.js"
   },
-  "_index.js": {
-    "file": "chunks/index.js",
-    "imports": [
-      "_ssr.js"
-    ]
-  },
   "_internal.js": {
     "file": "chunks/internal.js",
     "imports": [
@@ -49,7 +43,7 @@
     "imports": [
       "_internal.js",
       "_exports.js",
-      "_index.js"
+      "_ssr.js"
     ]
   },
   "src/routes/+layout.js": {
@@ -62,11 +56,10 @@
     "src": "src/routes/+page.svelte",
     "isEntry": true,
     "imports": [
-      "_ssr.js",
-      "_index.js"
+      "_ssr.js"
     ],
     "css": [
-      "_app/immutable/assets/_page.pw3K9l5X.css"
+      "_app/immutable/assets/_page.j4us-WSi.css"
     ]
   }
 }
