@@ -92,11 +92,37 @@ const Map$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { geoJsonToFit } = $$props;
   mapboxgl.accessToken = "pk.eyJ1IjoiZXZvY29kZSIsImEiOiJjbHNrc2JwejYwMzJ4Mm1sZm9rNXFxMzBpIn0.RLaeumLJ5YbXoasg3XQnTw";
   let container;
+  let station_markers;
+  const color_arrival = d3.scaleLinear().range(["cyan", "purple"]);
+  function update_station_markers() {
+    station_markers.transition().duration(1e3).attr("r", function(d) {
+      if (index == d3.timeFormat("%H")(new Date(d.transit_timestamp))) {
+        return calculateRadius(d.ridership);
+      } else {
+        return 0;
+      }
+    }).style("fill", function(d) {
+      return color_arrival(d.ridership / 3e3);
+    });
+  }
+  function calculateRadius(ridership) {
+    const scale = d3.scaleLinear().domain([0, 1, 500]).range(
+      [0, 2, 5]
+    );
+    return scale(ridership);
+  }
   if ($$props.index === void 0 && $$bindings.index && index !== void 0)
     $$bindings.index(index);
   if ($$props.geoJsonToFit === void 0 && $$bindings.geoJsonToFit && geoJsonToFit !== void 0)
     $$bindings.geoJsonToFit(geoJsonToFit);
   $$result.css.add(css$2);
+  {
+    {
+      if (index !== "undefined" && station_markers) {
+        update_station_markers();
+      }
+    }
+  }
   return `${$$result.head += `<!-- HEAD_svelte-1s9kg0l_START --><link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v2.14.0/mapbox-gl.css"><!-- HEAD_svelte-1s9kg0l_END -->`, ""} <div class="${["map svelte-19f1tf7", "visible"].join(" ").trim()}"${add_attribute("this", container, 0)}></div>`;
 });
 const css$1 = {

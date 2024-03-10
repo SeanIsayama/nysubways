@@ -12,6 +12,9 @@
     let lines = [];
     let data = [];
 
+
+
+
     onMount(async () => {
     const res = await fetch(
         'https://raw.githubusercontent.com/SeanIsayama/nysubways/main/src/data/ridership_by_hour.csv',
@@ -25,7 +28,6 @@
     });
     data = data;    
     });
-
     $: x = scaleUtc()
         .domain(extent(data, d => d.date))
         .range([marginLeft, width - marginRight]);
