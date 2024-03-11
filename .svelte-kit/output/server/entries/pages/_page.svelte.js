@@ -193,7 +193,7 @@ const Line = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   })}  <line${add_attribute("x1", data[index] ? x(data[index].date) : 0, 0)}${add_attribute("y1", marginTop, 0)}${add_attribute("x2", data[index] ? x(data[index].date) : 0, 0)}${add_attribute("y2", height - marginBottom, 0)} stroke="#FF0000" stroke-width="2"></line> <text font-family="Nunito, sans-serif" font-size="12px"${add_attribute("x", data[index] ? x(data[index].date) : 0, 0)}${add_attribute("y", marginTop - 8, 0)}><tspan>${escape(data[index].value)} riders</tspan> <tspan${add_attribute("x", data[index] ? x(data[index].date) : 0, 0)} dy="1.2em" font-size="9px">${escape(d3.timeFormat("%I:%M %p")(data[index].date))}</tspan></text>` : ``}</g></svg></div>`;
 });
 const css = {
-  code: ".background.svelte-pvjtau{width:100%;height:100vh;position:relative;outline:rgb(255, 255, 255) solid 3px}.foreground.svelte-pvjtau{width:10%;position:relative;left:100%;padding-top:500px}section.svelte-pvjtau{position:relative;height:20vh;background-color:white;outline:black solid 3px;color:black;padding-left:60px;margin:0 0 0 em 0;border-left:3px solid black}.hour-label.svelte-pvjtau{position:absolute;left:-60px;top:0%;-webkit-transform:translateY(-50%);transform:translateY(-50%);padding:0 10px}.stations-container.svelte-pvjtau{position:absolute;top:500;left:-60;width:100%;height:calc(100%-500px)}.station.svelte-pvjtau{position:absolute;width:2px;height:calc(100% - 500px);background-color:black}.station-label.svelte-pvjtau{position:absolute;top:0;background-color:white;padding:0 5px}.station-line.svelte-pvjtau{position:absolute;top:0;bottom:0;background-color:black}.progress-bars.svelte-pvjtau{position:absolute;top:10px;left:10px;z-index:999}",
+  code: ".background.svelte-puoyqw{width:100%;height:100vh;position:relative;outline:rgb(255, 255, 255) solid 3px}.foreground.svelte-puoyqw{width:10%;position:relative;left:100%;padding-top:500px}section.svelte-puoyqw{position:relative;height:20vh;background-color:white;outline:black solid 3px;color:black;padding-left:60px;margin:0 0 0 em 0;border-left:3px solid black}.hour-label.svelte-puoyqw{position:absolute;left:-60px;top:0%;-webkit-transform:translateY(-50%);transform:translateY(-50%);padding:0 10px}.stations-container.svelte-puoyqw{position:absolute;top:500;left:-60;width:100%;height:calc(100% - 500px)}.station.svelte-puoyqw{position:absolute;width:2px;height:calc(100% - 500px);background-color:black}.station-label.svelte-puoyqw{position:absolute;top:0;background-color:white;padding:0 5px}.station-line.svelte-puoyqw{position:absolute;top:0;bottom:0;background-color:black}.progress-bars.svelte-puoyqw{position:absolute;top:10px;left:10px;z-index:999}",
   map: null
 };
 const ScrollyTeller = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -251,14 +251,14 @@ const ScrollyTeller = create_ssr_component(($$result, $$props, $$bindings, slots
       },
       {
         foreground: () => {
-          return `<div class="foreground svelte-pvjtau" slot="foreground"><div class="stations-container svelte-pvjtau">${each(["Station 1", "Station 2", "Station 3"], (station, i) => {
-            return `<div class="station svelte-pvjtau" style="${"left: " + escape(i * 33, true) + "%;"}"><span class="station-label svelte-pvjtau">${escape(station)}</span> <div class="station-line svelte-pvjtau"></div> </div>`;
+          return `<div class="foreground svelte-puoyqw" slot="foreground"><div class="stations-container svelte-puoyqw">${each(["Station 1", "Station 2", "Station 3"], (station, i) => {
+            return `<div class="station svelte-puoyqw" style="${"left: " + escape(i * 33, true) + "%;"}"><span class="station-label svelte-puoyqw">${escape(station)}</span> <div class="station-line svelte-puoyqw"></div> </div>`;
           })}</div> ${each(Array(24), (_, i) => {
-            return `<section class="svelte-pvjtau"><span class="hour-label svelte-pvjtau">${escape(i === 0 ? "12 AM" : i < 12 ? `${i} AM` : i === 12 ? "12 PM" : `${i - 12} PM`)}</span> </section>`;
+            return `<section class="svelte-puoyqw"><span class="hour-label svelte-puoyqw">${escape(i === 0 ? "12 AM" : i < 12 ? `${i} AM` : i === 12 ? "12 PM" : `${i - 12} PM`)}</span> </section>`;
           })}</div>`;
         },
         background: () => {
-          return `<div class="background svelte-pvjtau" slot="background">${validate_component(Map$1, "Map").$$render(
+          return `<div class="background svelte-puoyqw" slot="background">${validate_component(Map$1, "Map").$$render(
             $$result,
             { index, geoJsonToFit },
             {
@@ -268,7 +268,7 @@ const ScrollyTeller = create_ssr_component(($$result, $$props, $$bindings, slots
               }
             },
             {}
-          )} ${validate_component(Line, "Line").$$render($$result, { index }, {}, {})}  <div class="progress-bars svelte-pvjtau"><p>current hour: <strong>${escape(index + 1)}/${escape(count)}</strong></p> <progress${add_attribute("value", count ? (index + 1) / count : 0, 0)}></progress></div></div>`;
+          )} ${validate_component(Line, "Line").$$render($$result, { index }, {}, {})}  <div class="progress-bars svelte-puoyqw"><p>current hour: <strong>${escape(index + 1)}/${escape(count)}</strong></p> <progress${add_attribute("value", count ? (index + 1) / count : 0, 0)}></progress></div></div>`;
         }
       }
     )}`;

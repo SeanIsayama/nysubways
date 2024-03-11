@@ -41,6 +41,7 @@
       type: "geojson",
       data: "https://raw.githubusercontent.com/SeanIsayama/nysubways/main/src/data/subwaylines.geojson",
     })
+    map.addControl(new mapboxgl.NavigationControl());
     map.addLayer({
         id: "new_york_routes",
         type: "line",

@@ -50,6 +50,7 @@
    >
     <Map bind:geoJsonToFit {index} />
     <Line {index}/>
+
     <!-- <Graph {index} {width} {height} {projection} /> -->
     <div class="progress-bars">
       <p>current hour: <strong>{index + 1}/{count}</strong></p>
@@ -58,7 +59,7 @@
 
   </div>
   
-  <div class="foreground" slot="foreground">
+  <div class="foreground" slot="foreground" >
     <div class="stations-container">
       {#each ['Station 1', 'Station 2', 'Station 3'] as station, i}
         <div class="station" style="left: {i * 33}%;">
@@ -118,7 +119,7 @@
   top: 500; /* Align with the top of the foreground */
   left: -60; /* Align with the left edge of the foreground */
   width: 100%; /* Take up the full width of the foreground */
-  height: calc(100%-500px); /* Take up the full height of the foreground */
+  height: calc(100% - 500px); /* Take up the full height of the foreground */
   /* z-index: 10; Ensure it's above the sections */
   /* pointer-events: none; Allows clicks to pass through */
 }
