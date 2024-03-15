@@ -84,13 +84,13 @@
   });
 
   function createStationMarkers(data) {
-    const marker_container = d3
-      .select(map.getCanvasContainer())
-      .append("svg")
-      .attr("width", "100%")
-      .attr("height", "100%")
-      .style("position", "absolute")
-      .style("z-index", 2);
+  const marker_container = d3
+    .select(map.getCanvasContainer())
+    .append("svg")
+    .attr("width", "100%")
+    .attr("height", "100%")
+    .style("position", "absolute")
+    .style("z-index", 2);
 
     station_markers = marker_container
       .selectAll("circle")
@@ -104,10 +104,24 @@
       .attr("stroke", "#808080")
       .attr("stroke-width", 1)
       .attr("fill-opacity", 0.4)
-      .attr("name", function(d) {
-        return d["name"];
+      .on("mouseenter", function(event, d) {
+        // Show popup with station name
+        const popup = new mapboxgl.Popup({
+          closeButton: false,
+          offset: 25,
+        })
+          .setLngLat([d.longitude, d.latitude])
+          .setHTML(`<p>${d.station_complex}</p>`)
+          .addTo(map);
+        this._popup = popup;
       })
-      ;
+      .on("mouseleave", function() {
+        // Remove popup when mouse leaves
+        if (this._popup) {
+          this._popup.remove();
+          this._popup = null;
+        }
+      });
 
     positionStationMarkers();
   }
@@ -154,5 +168,17 @@
     height: 100vh;
     position: absolute;
     outline: rgb(255, 255, 255) solid 3px;
+  }
+  .station-popup {
+  position: absolute;
+  background-color: white;
+  border: 1px solid black;
+  padding: 5px;
+  font-size: 12px;
+  z-index: 10;
+}
+svg {
+    position: absolute;
+    z-index: 1; 
   }
 </style>

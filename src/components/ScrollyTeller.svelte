@@ -60,7 +60,11 @@
   <div class="foreground" slot="foreground" >
     <!-- Moved the map component here -->
     <Map bind:geoJsonToFit {index} />
+
     <Line {index}/>
+
+    <!-- <Bar {index}/> -->
+
 
   </div>
   
@@ -104,6 +108,6 @@
 
   .bar-container {
     position: relative;
-    z-index: 2; /* Ensure the bar chart is above the line and map overlay */
+    z-index: 1; /* Ensure the bar chart is above the line and map overlay */
   }
 </style>

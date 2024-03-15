@@ -79,6 +79,40 @@
   
   
   
-  <style>
-    /* Add any additional styles here */
-  </style>
+<style>
+    /* Styles for the bar chart */
+    
+    /* Styling for the container */
+    .bar-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Styling for the SVG */
+    svg {
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Styling for the bars */
+    rect {
+        fill: steelblue; /* Color of the bars */
+    }
+
+    /* Styling for the x-axis */
+    .x-axis text {
+        font-size: 10px; /* Font size of the x-axis labels */
+    }
+
+    /* Styling for the y-axis */
+    .y-axis text {
+        font-size: 10px; /* Font size of the y-axis labels */
+    }
+
+    /* Styling for axis lines */
+    .axis path,
+    .axis line {
+        stroke: #ccc; /* Color of the axis lines */
+    }
+</style>
