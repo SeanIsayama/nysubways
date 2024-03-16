@@ -2,9 +2,12 @@
   import * as d3 from 'd3';
   import mapboxgl from "mapbox-gl";
   import { onMount } from "svelte";
+  import { createEventDispatcher } from 'svelte';
   export let busyness;
   export let geoJsonToFit;
   export let topStations;
+
+  const dispatch = createEventDispatcher();
 
 
   mapboxgl.accessToken =
@@ -15,7 +18,6 @@
   let zoomLevel;
   let stationsFile = "https://raw.githubusercontent.com/SeanIsayama/nysubways/main/src/data/MTA_01Feb2024_ridership.csv"
   // let stationsFile = `src/data/MTA_01Feb2024_ridership.csv`
-  // let stationsFile = "https://data.ny.gov/resource/wujg-7c2s.json?$query=SELECT%0A%20%20%60transit_timestamp%60%2C%0A%20%20%60transit_mode%60%2C%0A%20%20%60station_complex_id%60%2C%0A%20%20%60station_complex%60%2C%0A%20%20%60borough%60%2C%0A%20%20%60payment_method%60%2C%0A%20%20%60fare_class_category%60%2C%0A%20%20%60ridership%60%2C%0A%20%20%60transfers%60%2C%0A%20%20%60latitude%60%2C%0A%20%20%60longitude%60%2C%0A%20%20%60georeference%60%2C%0A%20%20%60%3A%40computed_region_kjdx_g34t%60%2C%0A%20%20%60%3A%40computed_region_yamh_8v7k%60%2C%0A%20%20%60%3A%40computed_region_wbg7_3whc%60%0AWHERE%0A%20%20%60transit_timestamp%60%0A%20%20%20%20BETWEEN%20%222024-02-01T00%3A00%3A00%22%20%3A%3A%20floating_timestamp%0A%20%20%20%20AND%20%222024-02-01T23%3A45%3A00%22%20%3A%3A%20floating_timestamp%0AORDER%20BY%20%60transit_timestamp%60%20ASC%20NULL%20LAST";
 	// let station_data = [];
 	let station_markers;
 
@@ -42,7 +44,7 @@
     map.on("load", () => {
     map.addSource("new_york_routes", {
       type: "geojson",
-      data: "https://raw.githubusercontent.com/SeanIsayama/nysubways_test/main/src/data/subwaylines.geojson",
+      data: "https://raw.githubusercontent.com/SeanIsayama/nysubways/main/src/data/subwaylines.geojson",
     })
     map.addControl(new mapboxgl.NavigationControl());
     map.addLayer({
@@ -129,7 +131,7 @@
 			.attr("stroke", "#808080")
 			.attr("stroke-width", 1)
 			.attr("fill-opacity", 0.4)
-            .on("mouseenter", function(event, d) {
+      .on("mouseenter", function(event, d) {
         // Show popup with station name
         const popup = new mapboxgl.Popup({
           closeButton: false,
@@ -146,10 +148,12 @@
           this._popup.remove();
           this._popup = null;
         }
+      })
+      // Click event listener for station markers
+      .on("click", function(event, d) {
+        // Dispatch custom event with station data
+        dispatch('stationClick', { detail: d });
       });
-			// .attr("name", function (d) {
-			// 	return d["name"];
-			// });
       position_station_markers();
     }
   function position_station_markers() {
@@ -204,7 +208,7 @@
       // Define your scale here
       const scale = d3.scaleLinear()
           .domain([0, 1, 500]) // Define your domain based on the expected range of ridership values
-          .range([0, 2, 5]); // Define the range of circle radii based on your preference
+          .range([0, 3, 6]); // Define the range of circle radii based on your preference
       return scale(ridership);
     }
 

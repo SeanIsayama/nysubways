@@ -98,6 +98,24 @@
             return formattedHour + ' ' + period;
         }
 
+let selectedStation = null;
+let ratio = null;
+// Function to handle station click event
+function handleStationClicked(event) {
+  // Access the station data from the event detail
+  const stationData = event.detail.detail;
+  // Set the selected station for display purposes if needed
+  selectedStation = stationData;
+  ratio = Math.min(selectedStation.ridership / 14000, 1);
+}
+
+const colors = ['#44ce1b', '#bbdb44', '#f7e379', '#f2a134', '#e51f1f'];
+
+function getStrokeColor(ratio) {
+  // Calculate the index of the color based on the ratio
+  const index = Math.floor(ratio * (colors.length - 1));
+  return colors[index];
+}
 
 </script>
 
@@ -155,16 +173,7 @@
       <section>section 3.</section>
       <section>
         <h2>Our Interactive Nagivation Tool</h2>
-        <Map busyness={busyness} geoJsonToFit={geoJsonToFit} topStations={topStations} />
-
-        <div class="hour-selector">
-          <label for="hour-select" class="hour-label">Change hour here:</label>
-          <select id="hour-select" bind:value={busyness} on:change={updateHour} class="hour-select">
-            {#each hours as hour}
-              <option value={hour}>{hour}:00 - {hour + 1}:00</option>
-            {/each}
-          </select>
-        </div>
+        <Map busyness={busyness} geoJsonToFit={geoJsonToFit} topStations={topStations} on:stationClick={handleStationClicked}/>
 
         <div class="menu-container">
           <div class="top-stations">
@@ -175,7 +184,80 @@
               {/each}
             </ul>
           </div>
-        </div>
+
+          <div class="hour-selector">
+            <label for="hour-select" class="hour-label">Change hour here:</label>
+            <select id="hour-select" bind:value={busyness} on:change={updateHour} class="hour-select">
+              {#each hours as hour}
+                <option value={hour}>{hour}:00 - {hour + 1}:00</option>
+              {/each}
+            </select>
+          </div>
+          <h1>Selected Station Details</h1>
+
+          {#if selectedStation}
+          <!-- Display details of the selected station if needed -->
+          <div class="station-name">
+            <h2>station name</h2>
+            <h3>{selectedStation.station_complex} Station</h3>
+          </div>
+          <div class="rider-count">
+            <h2>number of riders</h2>
+            <h3>{selectedStation.ridership} riders</h3>
+          </div>
+            <div class="donut-chart">
+            {#if ratio !== null}
+              <svg viewBox="-20 0 130 160" width="250" height="300">
+                <!-- Rounded border with rectangular edges -->
+                <rect x="5" y="5" width="100" height="140" rx="10" ry="10" fill="#f4f4ec" stroke="#ccc" stroke-width="1" />
+                <!-- White circle background -->
+                <circle cx="55" cy="90" r="40" fill="#ffffff"></circle>
+                <!-- Donut chart -->
+                <circle
+                  cx="10"
+                  cy="55"
+                  r="40"
+                  fill="transparent"
+                  stroke={getStrokeColor(ratio)}
+                  stroke-width="10"
+                  stroke-dasharray={`${ratio * 251}, 251`}
+                  transform="rotate(-90) translate(-100)"
+                  style="transition: stroke-dasharray 0.5s ease, stroke 0.5s ease;"
+                ></circle>
+                <!-- Text -->
+                <text
+                x="50"
+                y="23" 
+                font-size="9"
+                fill="#808080"
+                font-style="italic"
+                font-family= "Nunito, sans-serif"
+                text-anchor="middle"
+                dominant-baseline="middle"
+              >
+                percent busyness
+              </text>
+                <text
+                  x="55"
+                  y="90"
+                  font-size="15"
+                  font-family= "Nunito, sans-serif"
+                  text-anchor="middle"
+                  dominant-baseline="middle"
+                >
+                  {(ratio * 100).toFixed(0)}%
+                </text>
+              </svg>
+            {/if}
+            <!-- Add more details as needed -->
+          </div>
+        {:else}
+          <!-- Add text at the center when selectedStation is not available -->
+          <div class="centered-text">
+            <h2>click on a station to view details</h2>
+          </div>
+        {/if}
+      
     
   </div>
 
@@ -183,7 +265,7 @@
 
 <style>
   .header {
-  font-family: Nunito, sans-serif; 
+  font-family: "Nunito", sans-serif; 
   background-color: #d9d9d9;
   padding: 20px;
   border-bottom: 2px solid #ccc;
@@ -207,7 +289,12 @@
     font-size: 20px;
     font-family: Nunito, sans-serif;
   }
-  text{
+  h3{
+    font-size: 18px;
+    font-family: Nunito, sans-serif;
+  }
+  h4{
+    font-weight: normal;
     font-size: 16px;
     font-family: Nunito, sans-serif;
   }
@@ -313,9 +400,11 @@
 }
 
 .hour-selector {
+  font-style: italic;
+  font-family: "Nunito", sans-serif;
   position: absolute;
-  top: 25%;
-  right: 10%; /* Adjust this value for the desired distance from the right edge */
+  top: 25%; /* Adjust this value according to your needs */
+  right: 42%; /* Adjust this value for the desired distance from the right edge */
   transform: translateY(-50%);
   z-index: 999; /* Ensure the dropdown is on top of other elements */
 }
@@ -323,11 +412,26 @@
   margin-bottom: 5px; /* Add some space between the label and the dropdown menu */
 }
 .top-stations {
+  font-family: "Nunito", sans-serif;
+  right: 50%;
+  transform: translateX(50%);
+  width: 75%;
+  top: 1%;
+  border: 2px solid #ccc; /* Border color */
+  border-radius: 10px; /* Adjust the value to change the roundness of corners */
   position: absolute;
   z-index: 9;
 }
+.top-stations h2 {
+  text-align: center;
+  margin-bottom: 10px; /* Optional: Add space below the heading */
+}
+
 .top-stations ul {
   list-style-type: decimal; /* Use decimal numbers for list items */
+}
+.top-stations li{
+  font-family: "Nunito", sans-serif;
 }
 
 .menu-container {
@@ -340,9 +444,85 @@
   border-radius: 10px; /* Rounded border edges */
   transition: border-width 0.3s; /* Smooth transition for border width changes */
 }
+.menu-container h1 {
+  text-align: center;
+  font-family: "Nunito", sans-serif;
+  font-size: 20px;
+  margin-top: 220px; /* Adjust this value to move the text further down */
+}
+.station-name {
+  height: 14%;
+  width: 88%;
+  right: 3%;
+  position: absolute;
+  z-index: 9;
+  top: 33%;
+  padding: 10px; /* Add padding to create some space between text and border */
+  border: 2px solid #ccc; /* Set border width and color */
+  border-radius: 10px; /* Set border radius to create rounded edges */
+  background-color: #f4f4ec;
+}
+.station-name h2 {
+  font-size: 15px;
+  color: #808080;
+  font-style: italic;
+  font-weight: 530;
+  font-family: "Nunito", sans-serif;
+}
+.station-name h3 {
+  margin-top: -5px;
+  font-size: 28px;
+  color: black;
+  font-weight: bold;
+  font-family: "Nunito", sans-serif;
+}
+.rider-count {
+  height: 15%;
+  width: 42%;
+  right: 3%;
+  position: absolute;
+  z-index: 9;
+  top: 51%;
+  padding: 10px; /* Add padding to create some space between text and border */
+  border: 2px solid #ccc; /* Set border width and color */
+  border-radius: 10px; /* Set border radius to create rounded edges */
+  background-color: #f4f4ec;
+}
+.rider-count h2 {
+  font-size: 15px;
+  color: #808080;
+  font-style: italic;
+  font-weight: 530;
+  font-family: "Nunito", sans-serif;
+}
+.rider-count h3 {
+  margin-top: -5px;
+  font-size: 25px;
+  color: black;
+  font-weight: bold;
+  font-family: "Nunito", sans-serif;
+}
 
+.donut-chart {
+  right: 50%;
+  position: absolute;
+  z-index: 9;
+  top: 50%
+}
 
-
+.centered-text{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 100%);
+}
+.centered-text h2{
+  font-size: 15px;
+  color: #808080;
+  font-style: italic;
+  font-weight: normal;
+  font-family: "Nunito", sans-serif;
+}
 
 
 </style>
