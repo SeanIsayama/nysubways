@@ -13,8 +13,8 @@
   let container;
   let map;
   let zoomLevel;
-  // let stationsFile = "https://raw.githubusercontent.com/SeanIsayama/nysubways/main/src/data/MTA_Subway_Hourly_Ridership__01Feb2024.csv"
-  let stationsFile = `src/data/MTA_01Feb2024_ridership.csv`
+  let stationsFile = "https://raw.githubusercontent.com/SeanIsayama/nysubways/main/src/data/MTA_01Feb2024_ridership.csv"
+  // let stationsFile = `src/data/MTA_01Feb2024_ridership.csv`
   // let stationsFile = "https://data.ny.gov/resource/wujg-7c2s.json?$query=SELECT%0A%20%20%60transit_timestamp%60%2C%0A%20%20%60transit_mode%60%2C%0A%20%20%60station_complex_id%60%2C%0A%20%20%60station_complex%60%2C%0A%20%20%60borough%60%2C%0A%20%20%60payment_method%60%2C%0A%20%20%60fare_class_category%60%2C%0A%20%20%60ridership%60%2C%0A%20%20%60transfers%60%2C%0A%20%20%60latitude%60%2C%0A%20%20%60longitude%60%2C%0A%20%20%60georeference%60%2C%0A%20%20%60%3A%40computed_region_kjdx_g34t%60%2C%0A%20%20%60%3A%40computed_region_yamh_8v7k%60%2C%0A%20%20%60%3A%40computed_region_wbg7_3whc%60%0AWHERE%0A%20%20%60transit_timestamp%60%0A%20%20%20%20BETWEEN%20%222024-02-01T00%3A00%3A00%22%20%3A%3A%20floating_timestamp%0A%20%20%20%20AND%20%222024-02-01T23%3A45%3A00%22%20%3A%3A%20floating_timestamp%0AORDER%20BY%20%60transit_timestamp%60%20ASC%20NULL%20LAST";
 	// let station_data = [];
 	let station_markers;

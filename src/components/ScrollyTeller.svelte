@@ -22,7 +22,7 @@
   }
 
   async function fetchData(busyness) {
-    const res = await fetch(`src/data/ridership_by_hour.csv`);
+    const res = await fetch(`https://raw.githubusercontent.com/SeanIsayama/nysubways/main/src/data/ridership_by_hour.csv`);
     const text = await res.text();
     const data = d3.csvParse(text);
     const filteredData = data.filter(entry => {
@@ -37,7 +37,7 @@
   }
 
   onMount(async () => {
-    const res = await fetch(`src/data/MTA_01Feb2024_ridership.csv`);
+    const res = await fetch(`https://raw.githubusercontent.com/SeanIsayama/nysubways/main/src/data/MTA_01Feb2024_ridership.csv`);
     const text = await res.text();
     data = d3.csvParse(text);
     updateTopStations(busyness);
