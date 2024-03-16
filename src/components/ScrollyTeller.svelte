@@ -16,7 +16,7 @@
 
   let count, offset, progress;
   let width, height;
-
+  let markersCreated = false;
   let index = 0;
 
   const hours = Array.from({ length: 24 }, (_, i) => i);
@@ -91,7 +91,7 @@
   </div>
   
   <div class="foreground" slot="foreground">
-    <Map geoJsonToFit={geoJsonToFit} />
+    <Map index={index} geoJsonToFit={geoJsonToFit} />
     <div class="charts-container">
         <!-- <Bar {index}/> -->
         <Line {index} />
