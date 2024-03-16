@@ -42,7 +42,7 @@
     map.on("load", () => {
     map.addSource("new_york_routes", {
       type: "geojson",
-      data: "https://raw.githubusercontent.com/SeanIsayama/nysubways_test/main/src/data/subwaylines.geojson",
+      data: "https://raw.githubusercontent.com/SeanIsayama/nysubways/main/src/data/subwaylines.geojson",
     })
     map.addControl(new mapboxgl.NavigationControl());
     map.addLayer({
