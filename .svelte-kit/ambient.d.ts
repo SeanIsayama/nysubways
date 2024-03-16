@@ -26,16 +26,18 @@
  * ```
  */
 declare module '$env/static/private' {
+	export const MANPATH: string;
 	export const TERM_PROGRAM: string;
 	export const NODE: string;
 	export const INIT_CWD: string;
 	export const TERM: string;
 	export const SHELL: string;
+	export const HOMEBREW_REPOSITORY: string;
 	export const TMPDIR: string;
 	export const npm_config_global_prefix: string;
 	export const CONDA_SHLVL: string;
-	export const CONDA_PROMPT_MODIFIER: string;
 	export const TERM_PROGRAM_VERSION: string;
+	export const CONDA_PROMPT_MODIFIER: string;
 	export const ZDOTDIR: string;
 	export const ORIGINAL_XDG_CURRENT_DESKTOP: string;
 	export const MallocNanoZone: string;
@@ -55,8 +57,8 @@ declare module '$env/static/private' {
 	export const _: string;
 	export const npm_config_userconfig: string;
 	export const npm_config_init_module: string;
-	export const CONDA_PREFIX: string;
 	export const USER_ZDOTDIR: string;
+	export const CONDA_PREFIX: string;
 	export const __CFBundleIdentifier: string;
 	export const npm_command: string;
 	export const PWD: string;
@@ -76,6 +78,7 @@ declare module '$env/static/private' {
 	export const SHLVL: string;
 	export const HOME: string;
 	export const VSCODE_GIT_ASKPASS_MAIN: string;
+	export const HOMEBREW_PREFIX: string;
 	export const npm_config_cache: string;
 	export const CONDA_PYTHON_EXE: string;
 	export const LOGNAME: string;
@@ -85,7 +88,8 @@ declare module '$env/static/private' {
 	export const npm_config_user_agent: string;
 	export const VSCODE_GIT_ASKPASS_NODE: string;
 	export const GIT_ASKPASS: string;
-	export const DISPLAY: string;
+	export const INFOPATH: string;
+	export const HOMEBREW_CELLAR: string;
 	export const npm_node_execpath: string;
 	export const npm_config_prefix: string;
 	export const COLORTERM: string;
@@ -121,16 +125,18 @@ declare module '$env/static/public' {
  */
 declare module '$env/dynamic/private' {
 	export const env: {
+		MANPATH: string;
 		TERM_PROGRAM: string;
 		NODE: string;
 		INIT_CWD: string;
 		TERM: string;
 		SHELL: string;
+		HOMEBREW_REPOSITORY: string;
 		TMPDIR: string;
 		npm_config_global_prefix: string;
 		CONDA_SHLVL: string;
-		CONDA_PROMPT_MODIFIER: string;
 		TERM_PROGRAM_VERSION: string;
+		CONDA_PROMPT_MODIFIER: string;
 		ZDOTDIR: string;
 		ORIGINAL_XDG_CURRENT_DESKTOP: string;
 		MallocNanoZone: string;
@@ -150,8 +156,8 @@ declare module '$env/dynamic/private' {
 		_: string;
 		npm_config_userconfig: string;
 		npm_config_init_module: string;
-		CONDA_PREFIX: string;
 		USER_ZDOTDIR: string;
+		CONDA_PREFIX: string;
 		__CFBundleIdentifier: string;
 		npm_command: string;
 		PWD: string;
@@ -171,6 +177,7 @@ declare module '$env/dynamic/private' {
 		SHLVL: string;
 		HOME: string;
 		VSCODE_GIT_ASKPASS_MAIN: string;
+		HOMEBREW_PREFIX: string;
 		npm_config_cache: string;
 		CONDA_PYTHON_EXE: string;
 		LOGNAME: string;
@@ -180,7 +187,8 @@ declare module '$env/dynamic/private' {
 		npm_config_user_agent: string;
 		VSCODE_GIT_ASKPASS_NODE: string;
 		GIT_ASKPASS: string;
-		DISPLAY: string;
+		INFOPATH: string;
+		HOMEBREW_CELLAR: string;
 		npm_node_execpath: string;
 		npm_config_prefix: string;
 		COLORTERM: string;
