@@ -3,7 +3,7 @@
     import * as d3 from 'd3';
     import { onMount } from 'svelte';
     import { scaleLinear, scaleUtc, extent } from 'd3';
-    export let index;
+    export let index = 0;
 
   
     // Data
