@@ -5,6 +5,7 @@
 
   export let index;
   export let geoJsonToFit;
+  export let topStations;
 
   mapboxgl.accessToken = "pk.eyJ1IjoiZXZvY29kZSIsImEiOiJjbHNrc2JwejYwMzJ4Mm1sZm9rNXFxMzBpIn0.RLaeumLJ5YbXoasg3XQnTw";
 
@@ -105,7 +106,7 @@
       .data(data)
       .enter()
       .append("circle")
-      .attr("r", d => d.radius)
+      .attr("r", 0)
       .style("fill", "#808080")
       .attr("stroke", "#808080")
       .attr("stroke-width", 1)
@@ -141,16 +142,24 @@
 
   function update_station_markers() {
     station_markers
-      .transition()
-      .duration(1000)
-      .attr("r", function(d) {
-        const hour = new Date(d.transit_timestamp).getHours();
-        return hour === index ? calculateRadius(d.ridership) : 0;
-      })
-      .style("fill", function (d) {
-        return colorArrival(d.ridership); // Use the ridership value for color scaling
-      });
-  }
+        .transition()
+        .duration(1000)
+        .attr("r", function(d) {
+            const hour = new Date(d.transit_timestamp).getHours();
+            return hour === index ? calculateRadius(d.ridership) : 0;
+        })
+        .style("fill", function(d) {
+            const stationName = d.station_complex; // Assuming station_complex holds the station name
+            console.log("Station name:", stationName);
+            console.log("Top stations:", topStations);
+            // Check if the station is in the top stations list
+            const isTopStation = topStations.some(station => station.station_complex === stationName);
+            console.log("Is top station?", isTopStation);
+            // Return different colors based on whether it's in the top stations list
+            return isTopStation ? "red" : colorArrival(d.ridership);
+        });
+}
+
 
   function project(d) {
     return map.project(new mapboxgl.LngLat(d.longitude, d.latitude));
@@ -184,5 +193,11 @@
   svg {
     position: absolute;
     z-index: 1; 
+  }
+  .top-station {
+    fill: red; /* Adjust the color for the highlighted stations */
+    fill-opacity: 0.7; /* Adjust the opacity as needed */
+    stroke: black; /* Adjust the border color */
+    stroke-width: 1; /* Adjust the border width */
   }
 </style>
