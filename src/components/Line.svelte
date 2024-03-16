@@ -4,6 +4,7 @@
     import { onMount } from 'svelte';
     import { scaleLinear, scaleUtc, extent } from 'd3';
     export let index;
+
   
     // Data
     let gx;
@@ -17,7 +18,7 @@
 
     onMount(async () => {
     const res = await fetch(
-        'https://raw.githubusercontent.com/SeanIsayama/nysubways/main/src/data/ridership_by_hour.csv',
+        'src/data/ridership_by_hour.csv',
     );
     const csv = await res.text();
     await d3.csvParse(csv, (d, i, columns) => {
@@ -28,6 +29,8 @@
     });
     data = data;    
     });
+
+    
     $: x = scaleUtc()
         .domain(extent(data, d => d.date))
         .range([marginLeft, width - marginRight]);
