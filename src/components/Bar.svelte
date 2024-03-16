@@ -59,7 +59,7 @@
   
     onMount(async () => {
       svg = d3.select('svg');
-      const response = await fetch('src/data/MTA_Subway_Hourly_Ridership__Beginning_February_2022_20240308.csv');
+      const response = await fetch('src/data/MTA_Subway_Hourly_Ridership__01Feb2024.csv');
       const csvText = await response.text();
       ridershipData = d3.csvParse(csvText, d3.autoType);
       drawBarGraph();

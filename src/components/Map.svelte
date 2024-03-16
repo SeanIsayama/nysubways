@@ -90,7 +90,7 @@
     .attr("width", "100%")
     .attr("height", "100%")
     .style("position", "absolute")
-    .style("z-index", 2);
+    .style("z-index", 1);
 
     station_markers = marker_container
       .selectAll("circle")
@@ -104,7 +104,9 @@
       .attr("stroke", "#808080")
       .attr("stroke-width", 1)
       .attr("fill-opacity", 0.4)
-      .on("mouseenter", function(event, d) {
+    positionStationMarkers();
+
+    station_markers.on("mouseenter", function(event, d) {
         // Show popup with station name
         const popup = new mapboxgl.Popup({
           closeButton: false,
@@ -116,14 +118,11 @@
         this._popup = popup;
       })
       .on("mouseleave", function() {
-        // Remove popup when mouse leaves
         if (this._popup) {
           this._popup.remove();
           this._popup = null;
         }
       });
-
-    positionStationMarkers();
   }
 
   function positionStationMarkers() {
