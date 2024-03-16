@@ -1,7 +1,7 @@
 <script>
   import * as d3 from 'd3';
   import mapboxgl from "mapbox-gl";
-  import { onMount } from "svelte";
+  import { onMount, afterUpdate } from "svelte";
 
   export let index;
   export let geoJsonToFit;
@@ -11,11 +11,11 @@
   let container;
   let map;
   let zoomLevel;
-  let stationsFile = "https://raw.githubusercontent.com/SeanIsayama/nysubways/main/src/data/MTA_Subway_Hourly_Ridership__01Feb2024.csv";
+  let stationsFile = "src/data/MTA_Subway_Hourly_Ridership__01Feb2024.csv";
   let station_markers;
-  // let stationsFile = "/src/data/MTA_Subway_Hourly_Ridership__01Feb2024.csv";
-  // let stationsFile = "https://data.ny.gov/resource/wujg-7c2s.json?$query=SELECT%0A%20%20%60transit_timestamp%60%2C%0A%20%20%60transit_mode%60%2C%0A%20%20%60station_complex_id%60%2C%0A%20%20%60station_complex%60%2C%0A%20%20%60borough%60%2C%0A%20%20%60payment_method%60%2C%0A%20%20%60fare_class_category%60%2C%0A%20%20%60ridership%60%2C%0A%20%20%60transfers%60%2C%0A%20%20%60latitude%60%2C%0A%20%20%60longitude%60%2C%0A%20%20%60georeference%60%2C%0A%20%20%60%3A%40computed_region_kjdx_g34t%60%2C%0A%20%20%60%3A%40computed_region_yamh_8v7k%60%2C%0A%20%20%60%3A%40computed_region_wbg7_3whc%60%0AWHERE%0A%20%20%60transit_timestamp%60%0A%20%20%20%20BETWEEN%20%222024-02-01T00%3A00%3A00%22%20%3A%3A%20floating_timestamp%0A%20%20%20%20AND%20%222024-02-01T23%3A45%3A00%22%20%3A%3A%20floating_timestamp%0AORDER%20BY%20%60transit_timestamp%60%20ASC%20NULL%20LAST";
-  // let station_data = [];
+  let stationData = [];
+  let filteredStations = [];
+  let data;
 
   function updateZoomLevel() {
     const screenWidth = window.innerWidth;
@@ -37,34 +37,34 @@
       attributionControl: true, // removes attribution from the bottom of the map
     });
     map.on("load", () => {
-    map.addSource("new_york_routes", {
-      type: "geojson",
-      data: "https://raw.githubusercontent.com/SeanIsayama/nysubways/main/src/data/subwaylines.geojson",
-    })
-    map.addControl(new mapboxgl.NavigationControl());
-    map.addLayer({
+      map.addSource("new_york_routes", {
+        type: "geojson",
+        data: "src/data/subwaylines.geojson",
+      });
+      map.addControl(new mapboxgl.NavigationControl());
+      map.addLayer({
         id: "new_york_routes",
         type: "line",
         source: "new_york_routes",
         paint: {
-            "line-color": [
-                "match", 
-                ["get", "rt_symbol"],
-                "G", "#BEE5B0",
-                "N", "#ADD8E6",
-                "B", "#FFB6C1",
-                "L", "#FFFFE0",
-                "A", "#E6E6FA",
-                "7", "#FFE4B5",
-                "J", "#D3D3D3",
-                "1", "#E6E6FA",
-                "4", "#FFDAB9",
-                "#000000" // Default color if the rt_symbol doesn't match any of the above
-            ],
-            "line-width": 3,
+          "line-color": [
+            "match", 
+            ["get", "rt_symbol"],
+            "G", "#BEE5B0",
+            "N", "#ADD8E6",
+            "B", "#FFB6C1",
+            "L", "#FFFFE0",
+            "A", "#E6E6FA",
+            "7", "#FFE4B5",
+            "J", "#D3D3D3",
+            "1", "#E6E6FA",
+            "4", "#FFDAB9",
+            "#000000" // Default color if the rt_symbol doesn't match any of the above
+          ],
+          "line-width": 3,
         },
+      });
     });
-  });
 
     window.addEventListener("resize", handleResize);
 
@@ -78,51 +78,39 @@
     fetch(stationsFile)
       .then(response => response.text())
       .then(text => {
-        let data = d3.csvParse(text);
-        createStationMarkers(data);
+        let csvData = d3.csvParse(text);
+        data = csvData.map(d => ({
+          ...d,
+          radius: calculateRadius(d.ridership)
+        }));
+        createStationMarkers();
       });
   });
 
-  function createStationMarkers(data) {
-  const marker_container = d3
-    .select(map.getCanvasContainer())
-    .append("svg")
-    .attr("width", "100%")
-    .attr("height", "100%")
-    .style("position", "absolute")
-    .style("z-index", 1);
+  afterUpdate(() => {
+    update_station_markers();
+  });
+
+  function createStationMarkers() {
+    const marker_container = d3
+      .select(map.getCanvasContainer())
+      .append("svg")
+      .attr("width", "100%")
+      .attr("height", "100%")
+      .style("position", "absolute")
+      .style("z-index", 1);
 
     station_markers = marker_container
       .selectAll("circle")
       .data(data)
       .enter()
       .append("circle")
-      .attr("r", function(d) {
-        return calculateRadius(d.ridership);
-      })
+      .attr("r", d => d.radius)
       .style("fill", "#808080")
       .attr("stroke", "#808080")
       .attr("stroke-width", 1)
-      .attr("fill-opacity", 0.4)
+      .attr("fill-opacity", 0.4);
     positionStationMarkers();
-
-    station_markers.on("mouseenter", function(event, d) {
-        // Show popup with station name
-        const popup = new mapboxgl.Popup({
-          closeButton: false,
-          offset: 25,
-        })
-          .setLngLat([d.longitude, d.latitude])
-          .setHTML(`<p>${d.station_complex}</p>`)
-          .addTo(map);
-        this._popup = popup;
-      })
-      .on("mouseleave", function() {
-        if (this._popup) {
-          this._popup.remove();
-          this._popup = null;
-        }
-      });
   }
 
   function positionStationMarkers() {
@@ -133,10 +121,6 @@
       .attr("cy", function(d) {
         return project(d).y;
       });
-  }
-
-  function project(d) {
-    return map.project(new mapboxgl.LngLat(d.longitude, d.latitude));
   }
 
   function updateBounds() {
@@ -150,6 +134,27 @@
     return scale(ridership);
   }
 
+  $: updatedRadius = calculateRadius(stationData[index]?.ridership || 0);
+  const colorArrival = d3.scaleLinear()
+    .domain([0, 11223]) // Assuming 11223 is the max ridership
+    .range(["cyan", "purple"]);
+
+  function update_station_markers() {
+    station_markers
+      .transition()
+      .duration(1000)
+      .attr("r", function(d) {
+        const hour = new Date(d.transit_timestamp).getHours();
+        return hour === index ? calculateRadius(d.ridership) : 0;
+      })
+      .style("fill", function (d) {
+        return colorArrival(d.ridership); // Use the ridership value for color scaling
+      });
+  }
+
+  function project(d) {
+    return map.project(new mapboxgl.LngLat(d.longitude, d.latitude));
+  }
 </script>
 
 <svelte:head>
@@ -169,14 +174,14 @@
     outline: rgb(255, 255, 255) solid 3px;
   }
   .station-popup {
-  position: absolute;
-  background-color: white;
-  border: 1px solid black;
-  padding: 5px;
-  font-size: 12px;
-  z-index: 10;
-}
-svg {
+    position: absolute;
+    background-color: white;
+    border: 1px solid black;
+    padding: 5px;
+    font-size: 12px;
+    z-index: 10;
+  }
+  svg {
     position: absolute;
     z-index: 1; 
   }
