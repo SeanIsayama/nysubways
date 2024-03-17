@@ -74,34 +74,29 @@
 
     window.addEventListener("resize", handleResize);
 
-    function hideLabelLayers() {
-      const labelLayerIds = map
-        .getStyle()
-        .layers.filter(
-          (layer) =>
-            layer.type === "symbol" && /label|text|place/.test(layer.id)
-        )
-        .map((layer) => layer.id);
+    // function hideLabelLayers() {
+    //   const labelLayerIds = map
+    //     .getStyle()
+    //     .layers.filter(
+    //       (layer) =>
+    //         layer.type === "symbol" && /label|text|place/.test(layer.id)
+    //     )
+    //     .map((layer) => layer.id);
 
-      for (const layerId of labelLayerIds) {
-        map.setLayoutProperty(layerId, "visibility", "none");
-      }
-    }
+    //   for (const layerId of labelLayerIds) {
+    //     map.setLayoutProperty(layerId, "visibility", "none");
+    //   }
+    // }
 
     map.on("load", () => {
-      hideLabelLayers();
+      // hideLabelLayers();
       updateBounds();
       map.on("zoom", updateBounds);
       map.on("drag", updateBounds);
       map.on("move", updateBounds);
       
     });
-    /////////////////
-    // fetch(stationsFile)
-		// .then((response) => response.json())
-		// .then((d) => (station_data = d))
-    // .then((d) => create_station_markers(d));
-    /////////////////
+
     fetch(stationsFile)
     .then(response => response.text())
     .then(text => {

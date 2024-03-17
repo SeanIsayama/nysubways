@@ -242,7 +242,7 @@ function zoom_queens(){
       </section>
       <section>
         <h2>The Common Strategy</h2>
-        <p>The most common strategy in which almost all tourists and commuters use to navitage subways efficiently is to identify when these subways are most/least populated. By doing to, people are able to avoid "rush" periods, and utilize the subway when it is less "rushed". The line plot below   depicts the number of riders per hour throughout a randomly chosen weekday. </p>
+        <p>The most common strategy in which almost all tourists and commuters use to navitage subways efficiently is to identify when these subways are most/least populated. By doing to, people are able to avoid "rush" periods, and utilize the subway when it is less "rushed". The line plot below depicts the number of riders per hour throughout a randomly chosen weekday. Hover over the graph to view the number of riders for a particular time.</p>
         <p style="font-size: 14px; font-style: italic;"> *For the plot below, we have depicted data for the day February 01, 2024, obtained from data.ny.gov</p>
         <Line/>
       </section>
@@ -307,6 +307,10 @@ function zoom_queens(){
             <h2>number of riders</h2>
             <h3>{selectedStation.ridership} riders</h3>
           </div>
+          <div class="lines-container">
+            <h2>borough</h2>
+            <h3>{selectedStation.borough}</h3>
+          </div>
             <div class="donut-chart">
             {#if ratio !== null}
               <svg viewBox="-20 0 130 160" width="250" height="300">
@@ -359,6 +363,12 @@ function zoom_queens(){
             <h2>click on a station to view details</h2>
           </div>
         {/if}
+      </section>
+      <section style="height: 100px;">
+        <p>
+          One key takeaway from our project is the critical role that data-driven insights play in navigating New York City's bustling subway system. By understanding the ebb and flow of ridership throughout the day, both locals and tourists can make informed decisions to optimize their commutes. Our visualization effectively demonstrates how analyzing ridership patterns empowers users to identify peak hours, avoid crowded stations, and plan their journeys more efficiently. In a city known for its fast-paced lifestyle, this knowledge is invaluable for ensuring seamless travel experiences and maximizing time spent exploring the diverse neighborhoods of New York City
+        </p>
+      </section>
 
       
     
@@ -552,6 +562,7 @@ function zoom_queens(){
   border: 2px solid rgb(145, 144, 144); /* Initial border width */
   border-radius: 10px; /* Rounded border edges */
   transition: border-width 0.3s; /* Smooth transition for border width changes */
+  background-color: #ecece6;
 }
 .menu-container h1 {
   text-align: center;
@@ -692,6 +703,31 @@ function zoom_queens(){
   .button-container button:hover {
   background-color: #ccc; /* Change background color on hover */
 }
-
+.lines-container {
+  height: 12%;
+  width: 42%;
+  right: 3%;
+  position: absolute;
+  z-index: 9;
+  top: 80%;
+  padding: 10px; /* Add padding to create some space between text and border */
+  border: 2px solid #ccc; /* Set border width and color */
+  border-radius: 10px; /* Set border radius to create rounded edges */
+  background-color: #f4f4ec;
+  }
+  .lines-container h2 {
+    font-size: 15px;
+  color: #808080;
+  font-style: italic;
+  font-weight: 530;
+  font-family: "Nunito", sans-serif;
+}
+.lines-container h3{
+margin-top: -5px;
+  font-size: 25px;
+  color: black;
+  font-weight: bold;
+  font-family: "Nunito", sans-serif;
+}
 
 </style>
