@@ -1,5 +1,6 @@
 <script>
   import * as d3 from 'd3';
+  import ScrollyTeller from "./ScrollyTeller.svelte";
   import mapboxgl from "mapbox-gl";
   import { onMount } from "svelte";
   import { createEventDispatcher } from 'svelte';
@@ -153,6 +154,18 @@
       .on("click", function(event, d) {
         // Dispatch custom event with station data
         dispatch('stationClick', { detail: d });
+        
+        const newZoom = 13; // Choose an appropriate zoom level
+        const newCenter = [d.longitude, d.latitude];
+
+        // Animate the map zooming into the selected station
+        map.flyTo({
+          center: newCenter,
+          zoom: newZoom,
+          essential: true // this animation is considered essential with respect to prefers-reduced-motion
+        });
+
+
       });
       position_station_markers();
     }
@@ -181,12 +194,6 @@
   const color_arrival = d3.scaleLinear()
 		.range(["cyan", "purple"]);
   function update_station_markers() {
-
-      // const filteredData = station_data.filter(row => {
-      //       const timestamp = new Date(row.transit_timestamp);
-      //       const targetHour = d3.timeFormat('%H')(timestamp);
-      //       return targetHour == index;
-      //   });
       
 		station_markers
     .transition()
@@ -237,6 +244,18 @@
   //   isVisible = false;
   // }
 
+  export function changeZoom(d) {
+    const newZoom = 13; // Choose an appropriate zoom level
+        const newCenter = [d.longitude, d.latitude];
+
+       // Animate the map zooming into the selected station
+       map.flyTo({
+         center: newCenter,
+         zoom: newZoom,
+        essential: true // this animation is considered essential with respect to prefers-reduced-motion
+      });
+  }
+
 </script>
 
 <svelte:head>
@@ -246,7 +265,8 @@
   />
 </svelte:head>
 
-<div class="map" class:visible={isVisible} bind:this={container} />
+<div class="map" class:visible={isVisible} bind:this={container}></div>
+
 
 <style>
   .map {

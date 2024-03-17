@@ -7,6 +7,12 @@
   import { geoMercator } from "d3-geo";
   import Graph from "./Graph.svelte";
 
+  import { createEventDispatcher } from 'svelte';
+
+  const dispatch = createEventDispatcher();
+
+
+
   let count, index, offset, progress;
   let width, height;
   /////////////////////////////////
@@ -64,8 +70,6 @@
   ///////////////////////////
 
 
-
-
   let geoJsonToFit = {
     type: "FeatureCollection",
     features: [
@@ -100,6 +104,8 @@
 
 let selectedStation = null;
 let ratio = null;
+let mapCenter = [-73.886, 40.7128];
+
 // Function to handle station click event
 function handleStationClicked(event) {
   // Access the station data from the event detail
@@ -116,6 +122,57 @@ function getStrokeColor(ratio) {
   const index = Math.floor(ratio * (colors.length - 1));
   return colors[index];
 }
+
+
+
+// Function to handle changes in the typed station name
+let typedStationName = '';
+let matchedStation = null;
+let filteredStations = [];
+let stationSelected = true;
+
+function handleStationNameInput(event) {
+      stationSelected = true;
+      // Update filtered stations based on the typed station name
+      filteredStations = data.filter(entry => {
+        const entryTimestamp = new Date(entry.transit_timestamp);
+        const entryHour = parseInt(d3.timeFormat('%H')(entryTimestamp));
+        return entry.station_complex.toLowerCase().includes(typedStationName.toLowerCase()) && entryHour === busyness;
+      });
+      
+    }
+
+function handleKeyDown(event) {
+  if (filteredStations.length === 1){
+    if (event.key === 'Enter') {
+      stationSelected = false;
+      selectedStation = filteredStations[0];
+      ratio = Math.min(selectedStation.ridership / 14000, 1);
+      typedStationName = selectedStation.station_complex;
+      console.log('A');
+      dispatch('fly-station', selectedStation);
+
+      handleZoomChange(selectedStation)
+
+    }
+  }
+}
+// Function to select a station from the autocomplete options
+function selectStation(station) {
+  stationSelected = false;
+  selectedStation = station;
+  ratio = Math.min(selectedStation.ridership / 14000, 1);
+  typedStationName = selectedStation.station_complex;
+
+  handleZoomChange(selectedStation)
+}
+
+let mapComponent;
+function handleZoomChange(data) {
+  mapComponent.changeZoom(data);
+  }
+
+
 
 </script>
 
@@ -170,10 +227,9 @@ function getStrokeColor(ratio) {
         <p style="font-size: 14px; font-style: italic;"> *For the plot below, we have depicted data for the day February 01, 2024, obtained from data.ny.gov</p>
         <Line/>
       </section>
-      <section>section 3.</section>
       <section>
         <h2>Our Interactive Nagivation Tool</h2>
-        <Map busyness={busyness} geoJsonToFit={geoJsonToFit} topStations={topStations} on:stationClick={handleStationClicked}/>
+        <Map busyness={busyness} geoJsonToFit={geoJsonToFit} topStations={topStations} on:stationClick={handleStationClicked} bind:this={mapComponent}/>
 
         <div class="menu-container">
           <div class="top-stations">
@@ -186,7 +242,7 @@ function getStrokeColor(ratio) {
           </div>
 
           <div class="hour-selector">
-            <label for="hour-select" class="hour-label">Change hour here:</label>
+            <label for="hour-select" class="hour-label">change hour:</label>
             <select id="hour-select" bind:value={busyness} on:change={updateHour} class="hour-select">
               {#each hours as hour}
                 <option value={hour}>{hour}:00 - {hour + 1}:00</option>
@@ -194,7 +250,20 @@ function getStrokeColor(ratio) {
             </select>
           </div>
           <h1>Selected Station Details</h1>
-
+          <div class="search-bar">
+            <div class="search-text"> search for station:</div>
+          <div class = "textbox">
+            <input type="text" bind:value={typedStationName} placeholder="Type station_complex name" on:input={handleStationNameInput} on:keydown={handleKeyDown}>
+              {#if stationSelected && typedStationName !== ""}
+              <ul class="autocomplete-options">
+                {#each filteredStations.slice(0, 8) as station}
+                <div class="autocomplete-option" on:click={() => selectStation(station)}>{station.station_complex}</div>
+                {/each}
+              </ul>
+              {/if}
+          </div>
+        </div>
+          
           {#if selectedStation}
           <!-- Display details of the selected station if needed -->
           <div class="station-name">
@@ -257,6 +326,7 @@ function getStrokeColor(ratio) {
             <h2>click on a station to view details</h2>
           </div>
         {/if}
+
       
     
   </div>
@@ -404,7 +474,7 @@ function getStrokeColor(ratio) {
   font-family: "Nunito", sans-serif;
   position: absolute;
   top: 25%; /* Adjust this value according to your needs */
-  right: 42%; /* Adjust this value for the desired distance from the right edge */
+  right: 55%; /* Adjust this value for the desired distance from the right edge */
   transform: translateY(-50%);
   z-index: 999; /* Ensure the dropdown is on top of other elements */
 }
@@ -456,7 +526,7 @@ function getStrokeColor(ratio) {
   right: 3%;
   position: absolute;
   z-index: 9;
-  top: 33%;
+  top: 43%;
   padding: 10px; /* Add padding to create some space between text and border */
   border: 2px solid #ccc; /* Set border width and color */
   border-radius: 10px; /* Set border radius to create rounded edges */
@@ -482,7 +552,7 @@ function getStrokeColor(ratio) {
   right: 3%;
   position: absolute;
   z-index: 9;
-  top: 51%;
+  top: 61%;
   padding: 10px; /* Add padding to create some space between text and border */
   border: 2px solid #ccc; /* Set border width and color */
   border-radius: 10px; /* Set border radius to create rounded edges */
@@ -507,7 +577,7 @@ function getStrokeColor(ratio) {
   right: 50%;
   position: absolute;
   z-index: 9;
-  top: 50%
+  top: 60%
 }
 
 .centered-text{
@@ -522,6 +592,41 @@ function getStrokeColor(ratio) {
   font-style: italic;
   font-weight: normal;
   font-family: "Nunito", sans-serif;
+}
+.autocomplete-options {
+  margin-top: 0px;
+  position: absolute;
+  background-color: #e7e7e7; /* Set background color */
+  border: 1px solid #ccc; /* Add border for better visibility */
+  z-index: 9999999; /* Ensure the options appear above other elements */
+}
+.autocomplete-option {
+  padding: 1px; /* Add padding to the option for better spacing */
+  cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+.autocomplete-option:hover {
+  background-color: #ccc; /* Change background color on hover */
+}
+.textbox {
+  position: absolute;
+  top: 32%; /* Adjust the top positioning as needed */
+  right: 12%; /* Adjust the right positioning as needed */
+}
+.search-text {
+  font-style: italic;
+  font-family: "Nunito", sans-serif;
+  margin-right: 10px; /* Adjust spacing between text and input field */
+  transform: translateY(-70%);
+}
+.search-bar {
+  font-style: italic;
+  font-family: "Nunito", sans-serif;
+  position: absolute;
+  top: 25%; /* Adjust this value according to your needs */
+  right: 0%; /* Adjust this value for the desired distance from the right edge */
+  transform: translateY(-50%);
+  z-index: 999; /* Ensure the dropdown is on top of other elements */
 }
 
 
