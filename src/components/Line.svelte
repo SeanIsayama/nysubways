@@ -163,17 +163,17 @@
     <!-- Text Labels -->
       <text 
       font-family="Nunito, sans-serif" 
-      font-size="10px"
-      x={width / 4 - 10} 
-      y={height/2 + 70}
+      font-size="12px"
+      x={width / 4 - 100} 
+      y={height/2 + 250}
       text-anchor="middle" 
       >
           early morning
       </text>
       <text 
       font-family="Nunito, sans-serif" 
-      font-size="10px"
-      x={width / 2 - 10} 
+      font-size="12px"
+      x={width / 2 - 100} 
       y={height/8 + 15}
       text-anchor="middle" 
       >
@@ -181,7 +181,7 @@
       </text>
       <text 
       font-family="Nunito, sans-serif" 
-      font-size="10px"
+      font-size="12px"
       x={width / 2 + 20} 
       y={height/2 + 40}
       text-anchor="middle" 
@@ -190,8 +190,8 @@
       </text>
       <text 
       font-family="Nunito, sans-serif" 
-      font-size="10px"
-      x={width - 110} 
+      font-size="12px"
+      x={width - 270} 
       y={height/8 + 15}
       text-anchor="middle" 
       >
@@ -199,9 +199,9 @@
       </text>
       <text 
       font-family="Nunito, sans-serif" 
-      font-size="10px"
-      x={width - 50} 
-      y={height/2 + 40}
+      font-size="12px"
+      x={width - 150} 
+      y={height/2 + 100}
       text-anchor="middle" 
       >
           evening
