@@ -255,6 +255,56 @@
         essential: true // this animation is considered essential with respect to prefers-reduced-motion
       });
   }
+  export function reset_zoom() {
+      const newZoom = 10.5; // Choose an appropriate zoom level
+      const newCenter = [-73.886, 40.7128];
+       // Animate the map zooming into the selected station
+       map.flyTo({
+         center: newCenter,
+         zoom: newZoom,
+        essential: true // this animation is considered essential with respect to prefers-reduced-motion
+      });
+  }
+  export function zoom_manhattan() {
+      const newZoom = 12; // Choose an appropriate zoom level
+      const newCenter = [-73.9712, 40.7128];
+       // Animate the map zooming into the selected station
+       map.flyTo({
+         center: newCenter,
+         zoom: newZoom,
+        essential: true // this animation is considered essential with respect to prefers-reduced-motion
+      });
+  }
+  export function zoom_brookelyn() {
+      const newZoom = 12; // Choose an appropriate zoom level
+      const newCenter = [-73.9442, 40.6782];
+       // Animate the map zooming into the selected station
+       map.flyTo({
+         center: newCenter,
+         zoom: newZoom,
+        essential: true // this animation is considered essential with respect to prefers-reduced-motion
+      });
+  }
+  export function zoom_bronx() {
+      const newZoom = 12; // Choose an appropriate zoom level
+      const newCenter = [-73.8648, 40.8448];
+       // Animate the map zooming into the selected station
+       map.flyTo({
+         center: newCenter,
+         zoom: newZoom,
+        essential: true // this animation is considered essential with respect to prefers-reduced-motion
+      });
+  }
+  export function zoom_queens() {
+      const newZoom = 12; // Choose an appropriate zoom level
+      const newCenter = [-73.7949, 40.7282];
+       // Animate the map zooming into the selected station
+       map.flyTo({
+         center: newCenter,
+         zoom: newZoom,
+        essential: true // this animation is considered essential with respect to prefers-reduced-motion
+      });
+  }
 
 </script>
 

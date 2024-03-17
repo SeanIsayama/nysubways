@@ -22,7 +22,6 @@
 
   const hours = Array.from({ length: 24 }, (_, i) => i);
 
-
   function updateHour() {
     fetchData(busyness);
   }
@@ -89,9 +88,9 @@
       },
     ],
   };
-  ///////////////////////////
+
   $: busyness, updateTopStations(busyness); // Reactive statement to update top stations when index changes
-  ///////////////////////////
+
 
   $: projection = geoMercator().fitSize([width, height], geoJsonToFit);
 
@@ -149,7 +148,6 @@ function handleKeyDown(event) {
       selectedStation = filteredStations[0];
       ratio = Math.min(selectedStation.ridership / 14000, 1);
       typedStationName = selectedStation.station_complex;
-      console.log('A');
       dispatch('fly-station', selectedStation);
 
       handleZoomChange(selectedStation)
@@ -171,6 +169,23 @@ let mapComponent;
 function handleZoomChange(data) {
   mapComponent.changeZoom(data);
   }
+function reset_zoom(){
+  mapComponent.reset_zoom();
+}
+function zoom_manhattan(){
+  mapComponent.zoom_manhattan();
+  
+}
+function zoom_brookelyn(){
+  mapComponent.zoom_brookelyn();
+}
+function zoom_bronx(){
+  mapComponent.zoom_bronx();
+}
+function zoom_queens(){
+  mapComponent.zoom_queens();
+}
+
 
 
 
@@ -262,6 +277,17 @@ function handleZoomChange(data) {
               </ul>
               {/if}
           </div>
+        </div>
+        <div class="button-text"> jump to:</div>
+
+        <svg width="100%" height="600"></svg>
+
+        <div class="button-container">
+          <button on:click={reset_zoom}>Reset</button>
+          <button on:click={zoom_manhattan}>Manhattan</button>
+          <button on:click={zoom_brookelyn}>Brookelyn</button>
+          <button on:click={zoom_bronx}>Bronx</button>
+          <button on:click={zoom_queens}>Queens</button>
         </div>
           
           {#if selectedStation}
@@ -627,6 +653,30 @@ function handleZoomChange(data) {
   right: 0%; /* Adjust this value for the desired distance from the right edge */
   transform: translateY(-50%);
   z-index: 999; /* Ensure the dropdown is on top of other elements */
+}
+.button-text {
+  font-style: italic;
+  font-family: "Nunito", sans-serif;
+  margin-right: 10px; /* Adjust spacing between text and input field */
+  transform: translateX(10px);
+}
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    top: 270px;
+    position: absolute;
+    
+  }
+  .button-container button {
+    margin: 0 5px; /* Adjust margin between buttons */
+    padding: 5px 10px; /* Adjust button padding */
+    font-size: 14px; /* Adjust button font size */
+    border: 2px solid rgb(145, 144, 144); /* Initial border width */
+    border-radius: 10px; /* Rounded border edges */
+  }
+  .button-container button:hover {
+  background-color: #ccc; /* Change background color on hover */
 }
 
 

@@ -126,6 +126,56 @@ const Map$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       // this animation is considered essential with respect to prefers-reduced-motion
     });
   }
+  function reset_zoom() {
+    const newZoom = 10.5;
+    const newCenter = [-73.886, 40.7128];
+    map.flyTo({
+      center: newCenter,
+      zoom: newZoom,
+      essential: true
+      // this animation is considered essential with respect to prefers-reduced-motion
+    });
+  }
+  function zoom_manhattan() {
+    const newZoom = 12;
+    const newCenter = [-73.9712, 40.7128];
+    map.flyTo({
+      center: newCenter,
+      zoom: newZoom,
+      essential: true
+      // this animation is considered essential with respect to prefers-reduced-motion
+    });
+  }
+  function zoom_brookelyn() {
+    const newZoom = 12;
+    const newCenter = [-73.9442, 40.6782];
+    map.flyTo({
+      center: newCenter,
+      zoom: newZoom,
+      essential: true
+      // this animation is considered essential with respect to prefers-reduced-motion
+    });
+  }
+  function zoom_bronx() {
+    const newZoom = 12;
+    const newCenter = [-73.8648, 40.8448];
+    map.flyTo({
+      center: newCenter,
+      zoom: newZoom,
+      essential: true
+      // this animation is considered essential with respect to prefers-reduced-motion
+    });
+  }
+  function zoom_queens() {
+    const newZoom = 12;
+    const newCenter = [-73.7949, 40.7282];
+    map.flyTo({
+      center: newCenter,
+      zoom: newZoom,
+      essential: true
+      // this animation is considered essential with respect to prefers-reduced-motion
+    });
+  }
   if ($$props.busyness === void 0 && $$bindings.busyness && busyness !== void 0)
     $$bindings.busyness(busyness);
   if ($$props.geoJsonToFit === void 0 && $$bindings.geoJsonToFit && geoJsonToFit !== void 0)
@@ -134,6 +184,16 @@ const Map$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     $$bindings.topStations(topStations);
   if ($$props.changeZoom === void 0 && $$bindings.changeZoom && changeZoom !== void 0)
     $$bindings.changeZoom(changeZoom);
+  if ($$props.reset_zoom === void 0 && $$bindings.reset_zoom && reset_zoom !== void 0)
+    $$bindings.reset_zoom(reset_zoom);
+  if ($$props.zoom_manhattan === void 0 && $$bindings.zoom_manhattan && zoom_manhattan !== void 0)
+    $$bindings.zoom_manhattan(zoom_manhattan);
+  if ($$props.zoom_brookelyn === void 0 && $$bindings.zoom_brookelyn && zoom_brookelyn !== void 0)
+    $$bindings.zoom_brookelyn(zoom_brookelyn);
+  if ($$props.zoom_bronx === void 0 && $$bindings.zoom_bronx && zoom_bronx !== void 0)
+    $$bindings.zoom_bronx(zoom_bronx);
+  if ($$props.zoom_queens === void 0 && $$bindings.zoom_queens && zoom_queens !== void 0)
+    $$bindings.zoom_queens(zoom_queens);
   $$result.css.add(css$3);
   {
     {
@@ -493,7 +553,7 @@ const Graph = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   return `<svg width="100%" height="600" class="svelte-bssioj"></svg>`;
 });
 const css = {
-  code: '.header.svelte-jki3ko.svelte-jki3ko{font-family:"Nunito", sans-serif;background-color:#d9d9d9;padding:20px;border-bottom:2px solid #ccc}.header-content.svelte-jki3ko.svelte-jki3ko{background-color:"#d9d9d9";display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:justify;justify-content:space-between}.section-text.svelte-jki3ko.svelte-jki3ko{-webkit-box-flex:1;flex:1;margin-right:20px}h1.svelte-jki3ko.svelte-jki3ko{font-size:50px}h2.svelte-jki3ko.svelte-jki3ko{font-size:20px;font-family:Nunito, sans-serif}h3.svelte-jki3ko.svelte-jki3ko{font-size:18px;font-family:Nunito, sans-serif}.foreground.svelte-jki3ko.svelte-jki3ko{width:100%;position:relative;background-color:#f0f0f0;z-index:0}.background.svelte-jki3ko.svelte-jki3ko{width:100%;height:100vh;position:relative;outline:rgb(255, 255, 255) solid 3px;z-index:1}section.svelte-jki3ko.svelte-jki3ko{height:100vh;width:91.5%;position:relative;background-color:#f0f0f0;padding-left:60px;padding-right:60px}.progress-bars.svelte-jki3ko.svelte-jki3ko{position:fixed;top:0px;right:20px;z-index:999}.fixed-graph.svelte-jki3ko.svelte-jki3ko{position:sticky;top:50px;z-index:999}.hour-selector.svelte-jki3ko.svelte-jki3ko{font-style:italic;font-family:"Nunito", sans-serif;position:absolute;top:25%;right:55%;-webkit-transform:translateY(-50%);transform:translateY(-50%);z-index:999}.hour-label.svelte-jki3ko.svelte-jki3ko{margin-bottom:5px}.top-stations.svelte-jki3ko.svelte-jki3ko{font-family:"Nunito", sans-serif;right:50%;-webkit-transform:translateX(50%);transform:translateX(50%);width:75%;top:1%;border:2px solid #ccc;border-radius:10px;position:absolute;z-index:9}.top-stations.svelte-jki3ko h2.svelte-jki3ko{text-align:center;margin-bottom:10px}.top-stations.svelte-jki3ko ul.svelte-jki3ko{list-style-type:decimal}.top-stations.svelte-jki3ko li.svelte-jki3ko{font-family:"Nunito", sans-serif}.menu-container.svelte-jki3ko.svelte-jki3ko{position:absolute;top:5%;right:0%;width:30%;height:100%;border:2px solid rgb(145, 144, 144);border-radius:10px;-webkit-transition:border-width 0.3s;transition:border-width 0.3s}.menu-container.svelte-jki3ko h1.svelte-jki3ko{text-align:center;font-family:"Nunito", sans-serif;font-size:20px;margin-top:220px}.station-name.svelte-jki3ko.svelte-jki3ko{height:14%;width:88%;right:3%;position:absolute;z-index:9;top:43%;padding:10px;border:2px solid #ccc;border-radius:10px;background-color:#f4f4ec}.station-name.svelte-jki3ko h2.svelte-jki3ko{font-size:15px;color:#808080;font-style:italic;font-weight:530;font-family:"Nunito", sans-serif}.station-name.svelte-jki3ko h3.svelte-jki3ko{margin-top:-5px;font-size:28px;color:black;font-weight:bold;font-family:"Nunito", sans-serif}.rider-count.svelte-jki3ko.svelte-jki3ko{height:15%;width:42%;right:3%;position:absolute;z-index:9;top:61%;padding:10px;border:2px solid #ccc;border-radius:10px;background-color:#f4f4ec}.rider-count.svelte-jki3ko h2.svelte-jki3ko{font-size:15px;color:#808080;font-style:italic;font-weight:530;font-family:"Nunito", sans-serif}.rider-count.svelte-jki3ko h3.svelte-jki3ko{margin-top:-5px;font-size:25px;color:black;font-weight:bold;font-family:"Nunito", sans-serif}.donut-chart.svelte-jki3ko.svelte-jki3ko{right:50%;position:absolute;z-index:9;top:60%\n}.centered-text.svelte-jki3ko.svelte-jki3ko{position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%, 100%);transform:translate(-50%, 100%)}.centered-text.svelte-jki3ko h2.svelte-jki3ko{font-size:15px;color:#808080;font-style:italic;font-weight:normal;font-family:"Nunito", sans-serif}.autocomplete-options.svelte-jki3ko.svelte-jki3ko{margin-top:0px;position:absolute;background-color:#e7e7e7;border:1px solid #ccc;z-index:9999999}.autocomplete-option.svelte-jki3ko.svelte-jki3ko{padding:1px;cursor:pointer}.autocomplete-option.svelte-jki3ko.svelte-jki3ko:hover{background-color:#ccc}.textbox.svelte-jki3ko.svelte-jki3ko{position:absolute;top:32%;right:12%}.search-text.svelte-jki3ko.svelte-jki3ko{font-style:italic;font-family:"Nunito", sans-serif;margin-right:10px;-webkit-transform:translateY(-70%);transform:translateY(-70%)}.search-bar.svelte-jki3ko.svelte-jki3ko{font-style:italic;font-family:"Nunito", sans-serif;position:absolute;top:25%;right:0%;-webkit-transform:translateY(-50%);transform:translateY(-50%);z-index:999}',
+  code: '.header.svelte-e3kvj5.svelte-e3kvj5{font-family:"Nunito", sans-serif;background-color:#d9d9d9;padding:20px;border-bottom:2px solid #ccc}.header-content.svelte-e3kvj5.svelte-e3kvj5{background-color:"#d9d9d9";display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:justify;justify-content:space-between}.section-text.svelte-e3kvj5.svelte-e3kvj5{-webkit-box-flex:1;flex:1;margin-right:20px}h1.svelte-e3kvj5.svelte-e3kvj5{font-size:50px}h2.svelte-e3kvj5.svelte-e3kvj5{font-size:20px;font-family:Nunito, sans-serif}h3.svelte-e3kvj5.svelte-e3kvj5{font-size:18px;font-family:Nunito, sans-serif}.foreground.svelte-e3kvj5.svelte-e3kvj5{width:100%;position:relative;background-color:#f0f0f0;z-index:0}.background.svelte-e3kvj5.svelte-e3kvj5{width:100%;height:100vh;position:relative;outline:rgb(255, 255, 255) solid 3px;z-index:1}section.svelte-e3kvj5.svelte-e3kvj5{height:100vh;width:91.5%;position:relative;background-color:#f0f0f0;padding-left:60px;padding-right:60px}.progress-bars.svelte-e3kvj5.svelte-e3kvj5{position:fixed;top:0px;right:20px;z-index:999}.fixed-graph.svelte-e3kvj5.svelte-e3kvj5{position:sticky;top:50px;z-index:999}.hour-selector.svelte-e3kvj5.svelte-e3kvj5{font-style:italic;font-family:"Nunito", sans-serif;position:absolute;top:25%;right:55%;-webkit-transform:translateY(-50%);transform:translateY(-50%);z-index:999}.hour-label.svelte-e3kvj5.svelte-e3kvj5{margin-bottom:5px}.top-stations.svelte-e3kvj5.svelte-e3kvj5{font-family:"Nunito", sans-serif;right:50%;-webkit-transform:translateX(50%);transform:translateX(50%);width:75%;top:1%;border:2px solid #ccc;border-radius:10px;position:absolute;z-index:9}.top-stations.svelte-e3kvj5 h2.svelte-e3kvj5{text-align:center;margin-bottom:10px}.top-stations.svelte-e3kvj5 ul.svelte-e3kvj5{list-style-type:decimal}.top-stations.svelte-e3kvj5 li.svelte-e3kvj5{font-family:"Nunito", sans-serif}.menu-container.svelte-e3kvj5.svelte-e3kvj5{position:absolute;top:5%;right:0%;width:30%;height:100%;border:2px solid rgb(145, 144, 144);border-radius:10px;-webkit-transition:border-width 0.3s;transition:border-width 0.3s}.menu-container.svelte-e3kvj5 h1.svelte-e3kvj5{text-align:center;font-family:"Nunito", sans-serif;font-size:20px;margin-top:220px}.station-name.svelte-e3kvj5.svelte-e3kvj5{height:14%;width:88%;right:3%;position:absolute;z-index:9;top:43%;padding:10px;border:2px solid #ccc;border-radius:10px;background-color:#f4f4ec}.station-name.svelte-e3kvj5 h2.svelte-e3kvj5{font-size:15px;color:#808080;font-style:italic;font-weight:530;font-family:"Nunito", sans-serif}.station-name.svelte-e3kvj5 h3.svelte-e3kvj5{margin-top:-5px;font-size:28px;color:black;font-weight:bold;font-family:"Nunito", sans-serif}.rider-count.svelte-e3kvj5.svelte-e3kvj5{height:15%;width:42%;right:3%;position:absolute;z-index:9;top:61%;padding:10px;border:2px solid #ccc;border-radius:10px;background-color:#f4f4ec}.rider-count.svelte-e3kvj5 h2.svelte-e3kvj5{font-size:15px;color:#808080;font-style:italic;font-weight:530;font-family:"Nunito", sans-serif}.rider-count.svelte-e3kvj5 h3.svelte-e3kvj5{margin-top:-5px;font-size:25px;color:black;font-weight:bold;font-family:"Nunito", sans-serif}.donut-chart.svelte-e3kvj5.svelte-e3kvj5{right:50%;position:absolute;z-index:9;top:60%\n}.centered-text.svelte-e3kvj5.svelte-e3kvj5{position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%, 100%);transform:translate(-50%, 100%)}.centered-text.svelte-e3kvj5 h2.svelte-e3kvj5{font-size:15px;color:#808080;font-style:italic;font-weight:normal;font-family:"Nunito", sans-serif}.autocomplete-options.svelte-e3kvj5.svelte-e3kvj5{margin-top:0px;position:absolute;background-color:#e7e7e7;border:1px solid #ccc;z-index:9999999}.autocomplete-option.svelte-e3kvj5.svelte-e3kvj5{padding:1px;cursor:pointer}.autocomplete-option.svelte-e3kvj5.svelte-e3kvj5:hover{background-color:#ccc}.textbox.svelte-e3kvj5.svelte-e3kvj5{position:absolute;top:32%;right:12%}.search-text.svelte-e3kvj5.svelte-e3kvj5{font-style:italic;font-family:"Nunito", sans-serif;margin-right:10px;-webkit-transform:translateY(-70%);transform:translateY(-70%)}.search-bar.svelte-e3kvj5.svelte-e3kvj5{font-style:italic;font-family:"Nunito", sans-serif;position:absolute;top:25%;right:0%;-webkit-transform:translateY(-50%);transform:translateY(-50%);z-index:999}.button-text.svelte-e3kvj5.svelte-e3kvj5{font-style:italic;font-family:"Nunito", sans-serif;margin-right:10px;-webkit-transform:translateX(10px);transform:translateX(10px)}.button-container.svelte-e3kvj5.svelte-e3kvj5{display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;margin-top:20px;top:270px;position:absolute}.button-container.svelte-e3kvj5 button.svelte-e3kvj5{margin:0 5px;padding:5px 10px;font-size:14px;border:2px solid rgb(145, 144, 144);border-radius:10px}.button-container.svelte-e3kvj5 button.svelte-e3kvj5:hover{background-color:#ccc}',
   map: null
 };
 const ScrollyTeller = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -572,7 +632,7 @@ const ScrollyTeller = create_ssr_component(($$result, $$props, $$bindings, slots
       },
       {
         foreground: () => {
-          return `<div class="foreground svelte-jki3ko" slot="foreground"><div class="progress-bars svelte-jki3ko"><p>current section: <strong>${escape(index + 1)}/${escape(count)}</strong></p> <progress${add_attribute("value", count ? (index + 1) / count : 0, 0)}></progress> <p>offset in current section: <strong>${escape(parseFloat(offset).toFixed(2))}/1</strong></p> <progress${add_attribute("value", offset || 0, 0)}></progress></div> <section style="height: 400px; background-color: #d9d9d9;" class="svelte-jki3ko" data-svelte-h="svelte-1nnkr4a"><div class="header svelte-jki3ko" background-color="#d9d9d9"><div class="header-content svelte-jki3ko"><div class="section-text svelte-jki3ko"><h1 class="svelte-jki3ko">A Deep Dive into MTA Data</h1> <h2 class="svelte-jki3ko">An interactive tool for New York City&#39;s subway system navigation</h2></div></div></div></section> <section style="height: 3600px;" class="svelte-jki3ko"><div class="fixed-graph svelte-jki3ko"><h2 class="svelte-jki3ko" data-svelte-h="svelte-73zzey">The Issue</h2> ${validate_component(Graph, "Graph").$$render($$result, { index, offset }, {}, {})}</div></section> <section class="svelte-jki3ko"><h2 class="svelte-jki3ko" data-svelte-h="svelte-kirs69">The Common Strategy</h2> <p data-svelte-h="svelte-1usfmoq">The most common strategy in which almost all tourists and commuters use to navitage subways efficiently is to identify when these subways are most/least populated. By doing to, people are able to avoid &quot;rush&quot; periods, and utilize the subway when it is less &quot;rushed&quot;. The line plot below   depicts the number of riders per hour throughout a randomly chosen weekday.</p> <p style="font-size: 14px; font-style: italic;" data-svelte-h="svelte-p2qpz7">*For the plot below, we have depicted data for the day February 01, 2024, obtained from data.ny.gov</p> ${validate_component(Line, "Line").$$render($$result, {}, {}, {})}</section> <section class="svelte-jki3ko"><h2 class="svelte-jki3ko" data-svelte-h="svelte-1nk6x48">Our Interactive Nagivation Tool</h2> ${validate_component(Map$1, "Map").$$render(
+          return `<div class="foreground svelte-e3kvj5" slot="foreground"><div class="progress-bars svelte-e3kvj5"><p>current section: <strong>${escape(index + 1)}/${escape(count)}</strong></p> <progress${add_attribute("value", count ? (index + 1) / count : 0, 0)}></progress> <p>offset in current section: <strong>${escape(parseFloat(offset).toFixed(2))}/1</strong></p> <progress${add_attribute("value", offset || 0, 0)}></progress></div> <section style="height: 400px; background-color: #d9d9d9;" class="svelte-e3kvj5" data-svelte-h="svelte-1nnkr4a"><div class="header svelte-e3kvj5" background-color="#d9d9d9"><div class="header-content svelte-e3kvj5"><div class="section-text svelte-e3kvj5"><h1 class="svelte-e3kvj5">A Deep Dive into MTA Data</h1> <h2 class="svelte-e3kvj5">An interactive tool for New York City&#39;s subway system navigation</h2></div></div></div></section> <section style="height: 3600px;" class="svelte-e3kvj5"><div class="fixed-graph svelte-e3kvj5"><h2 class="svelte-e3kvj5" data-svelte-h="svelte-73zzey">The Issue</h2> ${validate_component(Graph, "Graph").$$render($$result, { index, offset }, {}, {})}</div></section> <section class="svelte-e3kvj5"><h2 class="svelte-e3kvj5" data-svelte-h="svelte-kirs69">The Common Strategy</h2> <p data-svelte-h="svelte-1usfmoq">The most common strategy in which almost all tourists and commuters use to navitage subways efficiently is to identify when these subways are most/least populated. By doing to, people are able to avoid &quot;rush&quot; periods, and utilize the subway when it is less &quot;rushed&quot;. The line plot below   depicts the number of riders per hour throughout a randomly chosen weekday.</p> <p style="font-size: 14px; font-style: italic;" data-svelte-h="svelte-p2qpz7">*For the plot below, we have depicted data for the day February 01, 2024, obtained from data.ny.gov</p> ${validate_component(Line, "Line").$$render($$result, {}, {}, {})}</section> <section class="svelte-e3kvj5"><h2 class="svelte-e3kvj5" data-svelte-h="svelte-1nk6x48">Our Interactive Nagivation Tool</h2> ${validate_component(Map$1, "Map").$$render(
             $$result,
             {
               busyness,
@@ -587,14 +647,14 @@ const ScrollyTeller = create_ssr_component(($$result, $$props, $$bindings, slots
               }
             },
             {}
-          )} <div class="menu-container svelte-jki3ko"><div class="top-stations svelte-jki3ko"><h2 class="svelte-jki3ko" data-svelte-h="svelte-6g4uqy">Busiest stations at this time</h2> <ul class="svelte-jki3ko">${each(topStations, (station) => {
-            return `<li class="svelte-jki3ko">${escape(station.station_complex)}: ${escape(station.ridership)} riders</li>`;
-          })}</ul></div> <div class="hour-selector svelte-jki3ko"><label for="hour-select" class="hour-label svelte-jki3ko" data-svelte-h="svelte-11w3ycd">change hour:</label> <select id="hour-select" class="hour-select">${each(hours, (hour) => {
+          )} <div class="menu-container svelte-e3kvj5"><div class="top-stations svelte-e3kvj5"><h2 class="svelte-e3kvj5" data-svelte-h="svelte-6g4uqy">Busiest stations at this time</h2> <ul class="svelte-e3kvj5">${each(topStations, (station) => {
+            return `<li class="svelte-e3kvj5">${escape(station.station_complex)}: ${escape(station.ridership)} riders</li>`;
+          })}</ul></div> <div class="hour-selector svelte-e3kvj5"><label for="hour-select" class="hour-label svelte-e3kvj5" data-svelte-h="svelte-11w3ycd">change hour:</label> <select id="hour-select" class="hour-select">${each(hours, (hour) => {
             return `<option${add_attribute("value", hour, 0)}>${escape(hour)}:00 - ${escape(hour + 1)}:00</option>`;
-          })}</select></div> <h1 class="svelte-jki3ko" data-svelte-h="svelte-mtvsgv">Selected Station Details</h1> <div class="search-bar svelte-jki3ko"><div class="search-text svelte-jki3ko" data-svelte-h="svelte-goxd9k">search for station:</div> <div class="textbox svelte-jki3ko"><input type="text" placeholder="Type station_complex name"${add_attribute("value", typedStationName, 0)}> ${``}</div></div> ${` <div class="centered-text svelte-jki3ko" data-svelte-h="svelte-7xxsiw"><h2 class="svelte-jki3ko">click on a station to view details</h2></div>`}</div></section></div>`;
+          })}</select></div> <h1 class="svelte-e3kvj5" data-svelte-h="svelte-mtvsgv">Selected Station Details</h1> <div class="search-bar svelte-e3kvj5"><div class="search-text svelte-e3kvj5" data-svelte-h="svelte-goxd9k">search for station:</div> <div class="textbox svelte-e3kvj5"><input type="text" placeholder="Type station_complex name"${add_attribute("value", typedStationName, 0)}> ${``}</div></div> <div class="button-text svelte-e3kvj5" data-svelte-h="svelte-18timt2">jump to:</div> <svg width="100%" height="600"></svg> <div class="button-container svelte-e3kvj5"><button class="svelte-e3kvj5" data-svelte-h="svelte-41zdeu">Reset</button> <button class="svelte-e3kvj5" data-svelte-h="svelte-1t9uklk">Manhattan</button> <button class="svelte-e3kvj5" data-svelte-h="svelte-101bqp2">Brookelyn</button> <button class="svelte-e3kvj5" data-svelte-h="svelte-1umh6my">Bronx</button> <button class="svelte-e3kvj5" data-svelte-h="svelte-1kq8fae">Queens</button></div> ${` <div class="centered-text svelte-e3kvj5" data-svelte-h="svelte-7xxsiw"><h2 class="svelte-e3kvj5">click on a station to view details</h2></div>`}</div></section></div>`;
         },
         background: () => {
-          return `<div class="background svelte-jki3ko" slot="background" data-svelte-h="svelte-afik7u"></div>`;
+          return `<div class="background svelte-e3kvj5" slot="background" data-svelte-h="svelte-afik7u"></div>`;
         }
       }
     )}`;
