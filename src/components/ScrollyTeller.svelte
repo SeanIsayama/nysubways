@@ -130,6 +130,12 @@ let matchedStation = null;
 let filteredStations = [];
 let stationSelected = true;
 
+$: if (busyness !== null) {
+    selectedStation = null; // Reset selected station
+    ratio = null; // Reset ratio or any other details related to the station
+}
+
+
 function handleStationNameInput(event) {
       stationSelected = true;
       // Update filtered stations based on the typed station name
@@ -364,9 +370,10 @@ function zoom_queens(){
           </div>
         {/if}
       </section>
-      <section style="height: 100px;">
+      <section style="height: 300px;">
+        <h2>Why use this tool?</h2>
         <p>
-          One key takeaway from our project is the critical role that data-driven insights play in navigating New York City's bustling subway system. By understanding the ebb and flow of ridership throughout the day, both locals and tourists can make informed decisions to optimize their commutes. Our visualization effectively demonstrates how analyzing ridership patterns empowers users to identify peak hours, avoid crowded stations, and plan their journeys more efficiently. In a city known for its fast-paced lifestyle, this knowledge is invaluable for ensuring seamless travel experiences and maximizing time spent exploring the diverse neighborhoods of New York City
+          This visualization demonstrates the critical role that data-driven insights play in navigating New York City's bustling subway system. By understanding the ebb and flow of ridership throughout the day, both locals and tourists can make informed decisions to optimize their commutes. Our visualization effectively demonstrates how analyzing ridership patterns empowers users to identify peak hours, avoid crowded stations at specific times, and plan their journeys more efficiently. In a city known for its fast-paced lifestyle, this knowledge is invaluable for ensuring seamless travel experiences and maximizing time spent exploring the diverse neighborhoods of New York City.
         </p>
       </section>
 

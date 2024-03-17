@@ -595,6 +595,13 @@ const ScrollyTeller = create_ssr_component(($$result, $$props, $$bindings, slots
       }
     ]
   };
+  let selectedStation = null;
+  let ratio = null;
+  const colors = ["#44ce1b", "#bbdb44", "#f7e379", "#f2a134", "#e51f1f"];
+  function getStrokeColor(ratio2) {
+    const index2 = Math.floor(ratio2 * (colors.length - 1));
+    return colors[index2];
+  }
   let typedStationName = "";
   let mapComponent;
   $$result.css.add(css);
@@ -608,6 +615,12 @@ const ScrollyTeller = create_ssr_component(($$result, $$props, $$bindings, slots
       updateTopStations(busyness);
     }
     geoMercator().fitSize([width2, height2], geoJsonToFit);
+    {
+      {
+        selectedStation = null;
+        ratio = null;
+      }
+    }
     $$rendered = `${validate_component(Scroller, "Scroller").$$render(
       $$result,
       {
@@ -658,7 +671,8 @@ const ScrollyTeller = create_ssr_component(($$result, $$props, $$bindings, slots
             return `<li class="svelte-dpgcga">${escape(station.station_complex)}: ${escape(station.ridership)} riders</li>`;
           })}</ul></div> <div class="hour-selector svelte-dpgcga"><label for="hour-select" class="hour-label svelte-dpgcga" data-svelte-h="svelte-11w3ycd">change hour:</label> <select id="hour-select" class="hour-select">${each(hours, (hour) => {
             return `<option${add_attribute("value", hour, 0)}>${escape(hour)}:00 - ${escape(hour + 1)}:00</option>`;
-          })}</select></div> <h1 class="svelte-dpgcga" data-svelte-h="svelte-mtvsgv">Selected Station Details</h1> <div class="search-bar svelte-dpgcga"><div class="search-text svelte-dpgcga" data-svelte-h="svelte-goxd9k">search for station:</div> <div class="textbox svelte-dpgcga"><input type="text" placeholder="Type station_complex name"${add_attribute("value", typedStationName, 0)}> ${``}</div></div> <div class="button-text svelte-dpgcga" data-svelte-h="svelte-18timt2">jump to:</div> <svg width="100%" height="600"></svg> <div class="button-container svelte-dpgcga"><button class="svelte-dpgcga" data-svelte-h="svelte-41zdeu">Reset</button> <button class="svelte-dpgcga" data-svelte-h="svelte-1t9uklk">Manhattan</button> <button class="svelte-dpgcga" data-svelte-h="svelte-f08l3z">Brooklyn</button> <button class="svelte-dpgcga" data-svelte-h="svelte-1umh6my">Bronx</button> <button class="svelte-dpgcga" data-svelte-h="svelte-1kq8fae">Queens</button></div> ${` <div class="centered-text svelte-dpgcga" data-svelte-h="svelte-7xxsiw"><h2 class="svelte-dpgcga">click on a station to view details</h2></div>`}</div></section> <section style="height: 100px;" class="svelte-dpgcga" data-svelte-h="svelte-1hqkyzq"><p>One key takeaway from our project is the critical role that data-driven insights play in navigating New York City&#39;s bustling subway system. By understanding the ebb and flow of ridership throughout the day, both locals and tourists can make informed decisions to optimize their commutes. Our visualization effectively demonstrates how analyzing ridership patterns empowers users to identify peak hours, avoid crowded stations, and plan their journeys more efficiently. In a city known for its fast-paced lifestyle, this knowledge is invaluable for ensuring seamless travel experiences and maximizing time spent exploring the diverse neighborhoods of New York City</p></section></div>`;
+          })}</select></div> <h1 class="svelte-dpgcga" data-svelte-h="svelte-mtvsgv">Selected Station Details</h1> <div class="search-bar svelte-dpgcga"><div class="search-text svelte-dpgcga" data-svelte-h="svelte-goxd9k">search for station:</div> <div class="textbox svelte-dpgcga"><input type="text" placeholder="Type station_complex name"${add_attribute("value", typedStationName, 0)}> ${``}</div></div> <div class="button-text svelte-dpgcga" data-svelte-h="svelte-18timt2">jump to:</div> <svg width="100%" height="600"></svg> <div class="button-container svelte-dpgcga"><button class="svelte-dpgcga" data-svelte-h="svelte-41zdeu">Reset</button> <button class="svelte-dpgcga" data-svelte-h="svelte-1t9uklk">Manhattan</button> <button class="svelte-dpgcga" data-svelte-h="svelte-f08l3z">Brooklyn</button> <button class="svelte-dpgcga" data-svelte-h="svelte-1umh6my">Bronx</button> <button class="svelte-dpgcga" data-svelte-h="svelte-1kq8fae">Queens</button></div> ${selectedStation ? ` <div class="station-name svelte-dpgcga"><h2 class="svelte-dpgcga" data-svelte-h="svelte-tafa7h">station name</h2> <h3 class="svelte-dpgcga">${escape(selectedStation.station_complex)} Station</h3></div> <div class="rider-count svelte-dpgcga"><h2 class="svelte-dpgcga" data-svelte-h="svelte-wrlsf5">number of riders</h2> <h3 class="svelte-dpgcga">${escape(selectedStation.ridership)} riders</h3></div> <div class="lines-container svelte-dpgcga"><h2 class="svelte-dpgcga" data-svelte-h="svelte-2pw5pe">borough</h2> <h3 class="svelte-dpgcga">${escape(selectedStation.borough)}</h3></div> <div class="donut-chart svelte-dpgcga">${ratio !== null ? `<svg viewBox="-20 0 130 160" width="250" height="300"><rect x="5" y="5" width="100" height="140" rx="10" ry="10" fill="#f4f4ec" stroke="#ccc" stroke-width="1"></rect><circle cx="55" cy="90" r="40" fill="#ffffff"></circle><circle cx="10" cy="55" r="40" fill="transparent"${add_attribute("stroke", getStrokeColor(ratio), 0)} stroke-width="10"${add_attribute("stroke-dasharray", `${ratio * 251}, 251`, 0)} transform="rotate(-90) translate(-100)" style="transition: stroke-dasharray 0.5s ease, stroke 0.5s ease;"></circle><text x="50" y="23" font-size="9" fill="#808080" font-style="italic" font-family="Nunito, sans-serif" text-anchor="middle" dominant-baseline="middle">percent busyness
+              </text><text x="55" y="90" font-size="15" font-family="Nunito, sans-serif" text-anchor="middle" dominant-baseline="middle">${escape((ratio * 100).toFixed(0))}%</text></svg>` : ``} </div>` : ` <div class="centered-text svelte-dpgcga" data-svelte-h="svelte-7xxsiw"><h2 class="svelte-dpgcga">click on a station to view details</h2></div>`}</div></section> <section style="height: 300px;" class="svelte-dpgcga" data-svelte-h="svelte-3t9w8i"><h2 class="svelte-dpgcga">Why use this tool?</h2> <p>This visualization demonstrates the critical role that data-driven insights play in navigating New York City&#39;s bustling subway system. By understanding the ebb and flow of ridership throughout the day, both locals and tourists can make informed decisions to optimize their commutes. Our visualization effectively demonstrates how analyzing ridership patterns empowers users to identify peak hours, avoid crowded stations at specific times, and plan their journeys more efficiently. In a city known for its fast-paced lifestyle, this knowledge is invaluable for ensuring seamless travel experiences and maximizing time spent exploring the diverse neighborhoods of New York City.</p></section></div>`;
         },
         background: () => {
           return `<div class="background svelte-dpgcga" slot="background" data-svelte-h="svelte-afik7u"></div>`;
