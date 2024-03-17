@@ -226,9 +226,13 @@ function zoom_queens(){
             <div class="section-text">
               <h1>A Deep Dive into MTA Data</h1>
               <h2>An interactive tool for New York City's subway system navigation</h2>
+              <a href="https://youtu.be/N35HDHWHOQc">Old Demo Video</a>
             </div>
           </div>
         </div>
+        <h4 style="height: 120px; display: flex; justify-content: center; align-items: center;">
+          Scroll slowly to begin
+        </h4>
       </section>
       <section style="height: 3600px;">
         <div class="fixed-graph">
@@ -242,8 +246,11 @@ function zoom_queens(){
         <p style="font-size: 14px; font-style: italic;"> *For the plot below, we have depicted data for the day February 01, 2024, obtained from data.ny.gov</p>
         <Line/>
       </section>
-      <section style="height: 830px;">
+      <section style="height: 960px;">
         <h2>Our Interactive Nagivation Tool</h2>
+        <p>
+          However, while understanding peak hours is crucial, it's only part of the equation. What the previous strategy overlooks is the dynamic nature of subway traffic at individual stations and along specific lines throughout the day. Not all stations experience the same level of activity during peak hours, nor are they uniformly quiet during off-peak times. This realization led to the development of a revolutionary tool: the interactive ridership analysis map. By harnessing the power of data visualization, we're now equipped to delve deeper into the ebb and flow of subway activity. With this tool, we can explore the busiest and quietest stations at any given hour, empowering both locals and visitors to navigate the city with precision and confidence. Each circle on the map represents a unique subway station, its color and size reflecting the corresponding ridership statistics for that hour. Feel free to explore New York City's transportation network and use this tool to analyze ridership patterns at various hours to plan your commute.
+        </p>
         <Map busyness={busyness} geoJsonToFit={geoJsonToFit} topStations={topStations} on:stationClick={handleStationClicked} bind:this={mapComponent}/>
 
         <div class="menu-container">
@@ -390,8 +397,9 @@ function zoom_queens(){
     font-family: Nunito, sans-serif;
   }
   h4{
+    font-style: italic;
     font-weight: normal;
-    font-size: 16px;
+    font-size: 12px;
     font-family: Nunito, sans-serif;
   }
   .body {
@@ -521,6 +529,7 @@ function zoom_queens(){
   border-radius: 10px; /* Adjust the value to change the roundness of corners */
   position: absolute;
   z-index: 9;
+  background-color: #f4f4ec;
 }
 .top-stations h2 {
   text-align: center;
@@ -536,10 +545,10 @@ function zoom_queens(){
 
 .menu-container {
   position: absolute;
-  top: 5%; /* Align with the top of the foreground */
+  top: 17%; /* Align with the top of the foreground */
   right: 0%; /* Align with the left edge of the foreground */
   width: 30%; /* Take up the full width of the foreground */
-  height: 94%; /* Take up the full height of the foreground */
+  height: 82%; /* Take up the full height of the foreground */
   border: 2px solid rgb(145, 144, 144); /* Initial border width */
   border-radius: 10px; /* Rounded border edges */
   transition: border-width 0.3s; /* Smooth transition for border width changes */
@@ -678,6 +687,7 @@ function zoom_queens(){
     font-size: 14px; /* Adjust button font size */
     border: 2px solid rgb(145, 144, 144); /* Initial border width */
     border-radius: 10px; /* Rounded border edges */
+    background-color: #f4f4ec;
   }
   .button-container button:hover {
   background-color: #ccc; /* Change background color on hover */
