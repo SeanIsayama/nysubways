@@ -203,7 +203,7 @@
       text.append('tspan')
         .attr('x', 850)
         .attr('y', 340) // Move down 20 units for the third line
-        .text('On the other hand, thre are only around 6400 subways cars,');
+        .text('On the other hand, there are only around 6400 subways cars,');
       text.append('tspan')
         .attr('x', 850)
         .attr('y', 360) // Move down 20 units for the third line

@@ -236,9 +236,12 @@ function zoom_queens(){
             </div>
           </div>
         </div>
-        <h4 style="height: 120px; display: flex; justify-content: center; align-items: center;">
-          Scroll slowly to begin
+        <h4 style="height: 60px; display: flex; justify-content: center; align-items: center;">
+          Scroll slowly to begin 
         </h4>
+        <div style="font-family: 'Nunito', sans-serif; font-size: 12px; font-style: italic; display: flex; justify-content: center;">
+          Reload at top of page to reset animation
+        </div>
       </section>
       <section style="height: 3600px;">
         <div class="fixed-graph">
