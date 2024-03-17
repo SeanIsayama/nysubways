@@ -8,11 +8,12 @@
   let data = Array.from({ length: 800 }, (_, i) => i); // Generate data for 800 circles
   const lines = [
   "The bustling metropolis of New York, often dubbed the 'City that ",
-  "never sleeps,' is home to around 8 million residents as of 2024. This", 
-  "vast community relies extensively on the efficiency and ",
-  "accessibility of public transportation networks, such as the ",
-  "iconic subway system, to sustain its vibrancy and fuel its economic ",
-  "growth and prosperity."
+  "never sleeps,' is home to around 8 million residents as of 2024.", 
+  "Navigating this vibrant city can be daunting for both locals and",
+  "visitors alike with its sprawling streets and constant hustle. ",
+  "Public transportation, particularly the iconic subway system, serves ",
+  "as the lifeblood of New York, offering an essential means of getting",
+  "around efficiently amidst the urban chaos."
 ];
 
   let text;
@@ -61,7 +62,7 @@
         .style('opacity', 0);
 
       text.selectAll('tspan')
-      .data(lines.filter((_, i) => i <= 6))
+      .data(lines.filter((_, i) => i <= 7))
       .enter()
       .append('tspan')
         .attr('x', 850)
@@ -94,14 +95,22 @@
     text.append('tspan')
           .attr('x', 850)
           .attr('y', 220) // Move down 20 units for the third line
-          .text(' 32% use the subway. This totals up to close to 2.5 million');
+          .text(' 32% use the subway, demonstrating its vital role in the daily');
     text.append('tspan')
           .attr('x', 850)
           .attr('y', 240) // Move down 20 units for the third line
-          .text('commuters that use the NYC subway network.');
+          .text("lives of New Yorkers. That's nearly 2.5 million commuters");
+    text.append('tspan')
+          .attr('x', 850)
+          .attr('y', 260) // Move down 20 units for the third line
+          .text("relying on the NYC subway network, showcasing its immense");
+    text.append('tspan')
+          .attr('x', 850)
+          .attr('y', 280) // Move down 20 units for the third line
+          .text("importance in keeping the city moving.");
           
     text.selectAll('tspan')
-      .filter((_, i) => i >= 7)
+      .filter((_, i) => i >= 8)
       .style('opacity', 0) // Set initial opacity to 0 for fading in effect
       .transition() // Apply transition for fading in effect
       .duration(1000) // Duration of the transition
@@ -179,7 +188,7 @@
             .attr('fill', 'none') // Set fill color of rectangle to none (transparent)
             .attr('stroke', 'black') // Set outline color to black
             .attr('x', 850)
-            .attr('y', 256)
+            .attr('y', 295)
             .attr('opacity', 0) // Set initial opacity to 0 for fading in effect
             .transition() // Apply transition for fading in effect
             .duration(500) // Duration of the transition
@@ -188,32 +197,28 @@
       //for rect legend
       text.append('tspan')
         .attr('x', 890)
-        .attr('y', 270)
+        .attr('y', 310)
         .text(' = 100 subway cars')
         .style('font-style', 'italic');
-
-      text.append('tspan')
-        .attr('x', 850)
-        .attr('y', 300) // Move down 20 units for the third line
-        .text('On the other hand, thre are only around 6400 subways cars,');
-      text.append('tspan')
-        .attr('x', 850)
-        .attr('y', 320) // Move down 20 units for the third line
-        .text('acccording to the MTA. These cars fit an average of 200');
       text.append('tspan')
         .attr('x', 850)
         .attr('y', 340) // Move down 20 units for the third line
-        .text('people, meaning even if all subway cars were in use and ');
+        .text('On the other hand, thre are only around 6400 subways cars,');
       text.append('tspan')
         .attr('x', 850)
         .attr('y', 360) // Move down 20 units for the third line
-        .text('in full capacity, it could only carry around 1/2 of all');
+        .text('acccording to the MTA. These cars fit an average of 200');
       text.append('tspan')
         .attr('x', 850)
         .attr('y', 380) // Move down 20 units for the third line
-        .text('NYC commuters.');
+        .text('people, meaning the system can only handle a fraction');
+      text.append('tspan')
+        .attr('x', 850)
+        .attr('y', 400) // Move down 20 units for the third line
+        .text("of NYC's bustling commuter population, even at full capacity.");
+
       text.selectAll('tspan')
-        .filter((_, i) => i >= 10)
+        .filter((_, i) => i >= 13)
         .style('opacity', 0) // Set initial opacity to 0 for fading in effect
         .transition() // Apply transition for fading in effect
         .duration(1000) // Duration of the transition
@@ -251,32 +256,36 @@
             .attr('cy', (_, i) => 500 - Math.random() * 100); // Random y position within a range
       text.append('tspan')
         .attr('x', 850)
-        .attr('y', 420) // Move down 20 units for the third line
-        .text('In addition, the annual 56.7 million visitors recorded in');
-      text.append('tspan')
-        .attr('x', 850)
         .attr('y', 440) // Move down 20 units for the third line
-        .text('2022 will only make the MTA subways even more populated,');
+        .text('Aside from the millions of locals, New York City welcomes');
       text.append('tspan')
         .attr('x', 850)
         .attr('y', 460) // Move down 20 units for the third line
-        .text('making navigation in these subways more difficult, stressful,');
+        .text('an astounding 56.7 million visitors annually as of 2022. For ');
       text.append('tspan')
         .attr('x', 850)
         .attr('y', 480) // Move down 20 units for the third line
-        .text('and challenging. This makes avoiding rushes and navigating');
+        .text("tourists, navigating the city's subway system can be a daunting task");
       text.append('tspan')
         .attr('x', 850)
         .attr('y', 500) // Move down 20 units for the third line
-        .text('seem near impossible. However, as of many things in life,');
+        .text('especially during peak times when trains are crowded with regular');
       text.append('tspan')
         .attr('x', 850)
         .attr('y', 520) // Move down 20 units for the third line
-        .text('there are tools and strategies for optimal navigation in the ');
+        .text("commuters. Avoiding rushes and finding your way amidst the subway's");
       text.append('tspan')
         .attr('x', 850)
         .attr('y', 540) // Move down 20 units for the third line
-        .text('NYC subways.');
+        .text('labyrinthine routes can seem like an insurmountable challenge for ');
+      text.append('tspan')
+        .attr('x', 850)
+        .attr('y', 560) // Move down 20 units for the third line
+        .text('newcomers. However, with the right tools and strategies, exploring ');
+      text.append('tspan')
+        .attr('x', 850)
+        .attr('y', 580) // Move down 20 units for the third line
+        .text(" New York's subway can become an adventure in itself.");
 
       text.append('tspan')
         .attr('x', 400)
@@ -291,7 +300,7 @@
         .text('Leftover residents');
 
       text.selectAll('tspan')
-        .filter((_, i) => i >= 16)
+        .filter((_, i) => i >= 18)
         .style('opacity', 0) // Set initial opacity to 0 for fading in effect
         .transition() // Apply transition for fading in effect
         .duration(1000) // Duration of the transition
@@ -310,7 +319,7 @@
           .text('So, what is the most optimal way to navigate the NYC subway?');
 
         text.selectAll('tspan')
-          .filter((_, i) => i >= 25)
+          .filter((_, i) => i >= 28)
           .style('opacity', 0) // Set initial opacity to 0 for fading in effect
           .transition() // Apply transition for fading in effect
           .duration(1000) // Duration of the transition

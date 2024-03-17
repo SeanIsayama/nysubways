@@ -212,13 +212,13 @@ function zoom_queens(){
 
     <div class="foreground" slot="foreground" >
       
-      <div class="progress-bars">
+      <!-- <div class="progress-bars">
         <p>current section: <strong>{index + 1}/{count}</strong></p>
         <progress value={count ? (index + 1) / count : 0} />
         <p>offset in current section: <strong>{parseFloat(offset).toFixed(2)}/1</strong></p>
         <progress value={offset || 0} />
     
-        </div>
+        </div> -->
       <section style="height: 400px; background-color: #d9d9d9;">
         <div class="header"
         background-color= "#d9d9d9">
@@ -242,7 +242,7 @@ function zoom_queens(){
         <p style="font-size: 14px; font-style: italic;"> *For the plot below, we have depicted data for the day February 01, 2024, obtained from data.ny.gov</p>
         <Line/>
       </section>
-      <section>
+      <section style="height: 830px;">
         <h2>Our Interactive Nagivation Tool</h2>
         <Map busyness={busyness} geoJsonToFit={geoJsonToFit} topStations={topStations} on:stationClick={handleStationClicked} bind:this={mapComponent}/>
 
@@ -285,7 +285,7 @@ function zoom_queens(){
         <div class="button-container">
           <button on:click={reset_zoom}>Reset</button>
           <button on:click={zoom_manhattan}>Manhattan</button>
-          <button on:click={zoom_brookelyn}>Brookelyn</button>
+          <button on:click={zoom_brookelyn}>Brooklyn</button>
           <button on:click={zoom_bronx}>Bronx</button>
           <button on:click={zoom_queens}>Queens</button>
         </div>
@@ -425,13 +425,17 @@ function zoom_queens(){
     background-color: #f0f0f0;
     /* padding-top: 500px;  */
     z-index: 0; 
+    margin: 0; /* Remove margin */
+    border: none;
     }
 
   .background {
     width: 100%;
     height: 100vh;
     position: relative;
-    outline: rgb(255, 255, 255) solid 3px;
+    outline: none;
+    margin: 0; /* Remove margin */
+    border: none;
     z-index: 1;
 
   }
@@ -535,7 +539,7 @@ function zoom_queens(){
   top: 5%; /* Align with the top of the foreground */
   right: 0%; /* Align with the left edge of the foreground */
   width: 30%; /* Take up the full width of the foreground */
-  height: 100%; /* Take up the full height of the foreground */
+  height: 94%; /* Take up the full height of the foreground */
   border: 2px solid rgb(145, 144, 144); /* Initial border width */
   border-radius: 10px; /* Rounded border edges */
   transition: border-width 0.3s; /* Smooth transition for border width changes */

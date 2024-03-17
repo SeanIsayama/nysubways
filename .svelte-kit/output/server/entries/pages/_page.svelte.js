@@ -273,11 +273,12 @@ const Graph = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let data = Array.from({ length: 800 }, (_, i) => i);
   const lines = [
     "The bustling metropolis of New York, often dubbed the 'City that ",
-    "never sleeps,' is home to around 8 million residents as of 2024. This",
-    "vast community relies extensively on the efficiency and ",
-    "accessibility of public transportation networks, such as the ",
-    "iconic subway system, to sustain its vibrancy and fuel its economic ",
-    "growth and prosperity."
+    "never sleeps,' is home to around 8 million residents as of 2024.",
+    "Navigating this vibrant city can be daunting for both locals and",
+    "visitors alike with its sprawling streets and constant hustle. ",
+    "Public transportation, particularly the iconic subway system, serves ",
+    "as the lifeblood of New York, offering an essential means of getting",
+    "around efficiently amidst the urban chaos."
   ];
   let text;
   function createCircles() {
@@ -314,7 +315,7 @@ const Graph = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       50
       // Adjust y position as needed
     ).attr("fill", "black").style("opacity", 0);
-    text.selectAll("tspan").data(lines.filter((_, i) => i <= 6)).enter().append("tspan").attr("x", 850).attr("dy", (d, i) => i === 0 ? 0 : "1.2em").text(
+    text.selectAll("tspan").data(lines.filter((_, i) => i <= 7)).enter().append("tspan").attr("x", 850).attr("dy", (d, i) => i === 0 ? 0 : "1.2em").text(
       (d) => d
     );
     text.append("tspan").attr("x", 860).attr("y", 25).text(" = 10,000 people").style("font-style", "italic");
@@ -332,12 +333,18 @@ const Graph = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       "Of all people who commuted to work in New York City in 2021,"
     );
     text.append("tspan").attr("x", 850).attr("y", 220).text(
-      " 32% use the subway. This totals up to close to 2.5 million"
+      " 32% use the subway, demonstrating its vital role in the daily"
     );
     text.append("tspan").attr("x", 850).attr("y", 240).text(
-      "commuters that use the NYC subway network."
+      "lives of New Yorkers. That's nearly 2.5 million commuters"
     );
-    text.selectAll("tspan").filter((_, i) => i >= 7).style("opacity", 0).transition().duration(
+    text.append("tspan").attr("x", 850).attr("y", 260).text(
+      "relying on the NYC subway network, showcasing its immense"
+    );
+    text.append("tspan").attr("x", 850).attr("y", 280).text(
+      "importance in keeping the city moving."
+    );
+    text.selectAll("tspan").filter((_, i) => i >= 8).style("opacity", 0).transition().duration(
       1e3
       // Apply transition for fading in effect // Duration of the transition
     ).style("opacity", 1);
@@ -400,30 +407,27 @@ const Graph = create_ssr_component(($$result, $$props, $$bindings, slots) => {
         ).attr("stroke", "black").attr(
           "x",
           850
-        ).attr("y", 256).attr("opacity", 0).transition().duration(
+        ).attr("y", 295).attr("opacity", 0).transition().duration(
           500
           // Apply transition for fading in effect // Duration of the transition
         ).attr("opacity", 0.7);
       },
       500
     );
-    text.append("tspan").attr("x", 890).attr("y", 270).text(" = 100 subway cars").style("font-style", "italic");
-    text.append("tspan").attr("x", 850).attr("y", 300).text(
+    text.append("tspan").attr("x", 890).attr("y", 310).text(" = 100 subway cars").style("font-style", "italic");
+    text.append("tspan").attr("x", 850).attr("y", 340).text(
       "On the other hand, thre are only around 6400 subways cars,"
     );
-    text.append("tspan").attr("x", 850).attr("y", 320).text(
+    text.append("tspan").attr("x", 850).attr("y", 360).text(
       "acccording to the MTA. These cars fit an average of 200"
     );
-    text.append("tspan").attr("x", 850).attr("y", 340).text(
-      "people, meaning even if all subway cars were in use and "
-    );
-    text.append("tspan").attr("x", 850).attr("y", 360).text(
-      "in full capacity, it could only carry around 1/2 of all"
-    );
     text.append("tspan").attr("x", 850).attr("y", 380).text(
-      "NYC commuters."
+      "people, meaning the system can only handle a fraction"
     );
-    text.selectAll("tspan").filter((_, i) => i >= 10).style("opacity", 0).transition().duration(
+    text.append("tspan").attr("x", 850).attr("y", 400).text(
+      "of NYC's bustling commuter population, even at full capacity."
+    );
+    text.selectAll("tspan").filter((_, i) => i >= 13).style("opacity", 0).transition().duration(
       1e3
       // Apply transition for fading in effect // Duration of the transition
     ).style("opacity", 1);
@@ -455,26 +459,29 @@ const Graph = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       5
       // Animate radius
     ).attr("cy", (_, i) => 500 - Math.random() * 100);
-    text.append("tspan").attr("x", 850).attr("y", 420).text(
-      "In addition, the annual 56.7 million visitors recorded in"
-    );
     text.append("tspan").attr("x", 850).attr("y", 440).text(
-      "2022 will only make the MTA subways even more populated,"
+      "Aside from the millions of locals, New York City welcomes"
     );
     text.append("tspan").attr("x", 850).attr("y", 460).text(
-      "making navigation in these subways more difficult, stressful,"
+      "an astounding 56.7 million visitors annually as of 2022. For "
     );
     text.append("tspan").attr("x", 850).attr("y", 480).text(
-      "and challenging. This makes avoiding rushes and navigating"
+      "tourists, navigating the city's subway system can be a daunting task"
     );
     text.append("tspan").attr("x", 850).attr("y", 500).text(
-      "seem near impossible. However, as of many things in life,"
+      "especially during peak times when trains are crowded with regular"
     );
     text.append("tspan").attr("x", 850).attr("y", 520).text(
-      "there are tools and strategies for optimal navigation in the "
+      "commuters. Avoiding rushes and finding your way amidst the subway's"
     );
     text.append("tspan").attr("x", 850).attr("y", 540).text(
-      "NYC subways."
+      "labyrinthine routes can seem like an insurmountable challenge for "
+    );
+    text.append("tspan").attr("x", 850).attr("y", 560).text(
+      "newcomers. However, with the right tools and strategies, exploring "
+    );
+    text.append("tspan").attr("x", 850).attr("y", 580).text(
+      " New York's subway can become an adventure in itself."
     );
     text.append("tspan").attr("x", 400).attr("y", 550).style(
       "font-family",
@@ -484,7 +491,7 @@ const Graph = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       "font-family",
       "Nunito, sans-serif"
     ).text("Leftover residents");
-    text.selectAll("tspan").filter((_, i) => i >= 16).style("opacity", 0).transition().duration(
+    text.selectAll("tspan").filter((_, i) => i >= 18).style("opacity", 0).transition().duration(
       1e3
       // Apply transition for fading in effect // Duration of the transition
     ).style("opacity", 1);
@@ -492,7 +499,7 @@ const Graph = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   function finalQuestion() {
     select("svg");
     text.append("tspan").attr("x", 30).attr("y", 270).style("font-family", "Nunito, sans-serif").style("font-weight", "bold").style("font-size", "24px").text("So, what is the most optimal way to navigate the NYC subway?");
-    text.selectAll("tspan").filter((_, i) => i >= 25).style("opacity", 0).transition().duration(
+    text.selectAll("tspan").filter((_, i) => i >= 28).style("opacity", 0).transition().duration(
       1e3
       // Apply transition for fading in effect // Duration of the transition
     ).style("opacity", 1);
@@ -553,7 +560,7 @@ const Graph = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   return `<svg width="100%" height="600" class="svelte-bssioj"></svg>`;
 });
 const css = {
-  code: '.header.svelte-e3kvj5.svelte-e3kvj5{font-family:"Nunito", sans-serif;background-color:#d9d9d9;padding:20px;border-bottom:2px solid #ccc}.header-content.svelte-e3kvj5.svelte-e3kvj5{background-color:"#d9d9d9";display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:justify;justify-content:space-between}.section-text.svelte-e3kvj5.svelte-e3kvj5{-webkit-box-flex:1;flex:1;margin-right:20px}h1.svelte-e3kvj5.svelte-e3kvj5{font-size:50px}h2.svelte-e3kvj5.svelte-e3kvj5{font-size:20px;font-family:Nunito, sans-serif}h3.svelte-e3kvj5.svelte-e3kvj5{font-size:18px;font-family:Nunito, sans-serif}.foreground.svelte-e3kvj5.svelte-e3kvj5{width:100%;position:relative;background-color:#f0f0f0;z-index:0}.background.svelte-e3kvj5.svelte-e3kvj5{width:100%;height:100vh;position:relative;outline:rgb(255, 255, 255) solid 3px;z-index:1}section.svelte-e3kvj5.svelte-e3kvj5{height:100vh;width:91.5%;position:relative;background-color:#f0f0f0;padding-left:60px;padding-right:60px}.progress-bars.svelte-e3kvj5.svelte-e3kvj5{position:fixed;top:0px;right:20px;z-index:999}.fixed-graph.svelte-e3kvj5.svelte-e3kvj5{position:sticky;top:50px;z-index:999}.hour-selector.svelte-e3kvj5.svelte-e3kvj5{font-style:italic;font-family:"Nunito", sans-serif;position:absolute;top:25%;right:55%;-webkit-transform:translateY(-50%);transform:translateY(-50%);z-index:999}.hour-label.svelte-e3kvj5.svelte-e3kvj5{margin-bottom:5px}.top-stations.svelte-e3kvj5.svelte-e3kvj5{font-family:"Nunito", sans-serif;right:50%;-webkit-transform:translateX(50%);transform:translateX(50%);width:75%;top:1%;border:2px solid #ccc;border-radius:10px;position:absolute;z-index:9}.top-stations.svelte-e3kvj5 h2.svelte-e3kvj5{text-align:center;margin-bottom:10px}.top-stations.svelte-e3kvj5 ul.svelte-e3kvj5{list-style-type:decimal}.top-stations.svelte-e3kvj5 li.svelte-e3kvj5{font-family:"Nunito", sans-serif}.menu-container.svelte-e3kvj5.svelte-e3kvj5{position:absolute;top:5%;right:0%;width:30%;height:100%;border:2px solid rgb(145, 144, 144);border-radius:10px;-webkit-transition:border-width 0.3s;transition:border-width 0.3s}.menu-container.svelte-e3kvj5 h1.svelte-e3kvj5{text-align:center;font-family:"Nunito", sans-serif;font-size:20px;margin-top:220px}.station-name.svelte-e3kvj5.svelte-e3kvj5{height:14%;width:88%;right:3%;position:absolute;z-index:9;top:43%;padding:10px;border:2px solid #ccc;border-radius:10px;background-color:#f4f4ec}.station-name.svelte-e3kvj5 h2.svelte-e3kvj5{font-size:15px;color:#808080;font-style:italic;font-weight:530;font-family:"Nunito", sans-serif}.station-name.svelte-e3kvj5 h3.svelte-e3kvj5{margin-top:-5px;font-size:28px;color:black;font-weight:bold;font-family:"Nunito", sans-serif}.rider-count.svelte-e3kvj5.svelte-e3kvj5{height:15%;width:42%;right:3%;position:absolute;z-index:9;top:61%;padding:10px;border:2px solid #ccc;border-radius:10px;background-color:#f4f4ec}.rider-count.svelte-e3kvj5 h2.svelte-e3kvj5{font-size:15px;color:#808080;font-style:italic;font-weight:530;font-family:"Nunito", sans-serif}.rider-count.svelte-e3kvj5 h3.svelte-e3kvj5{margin-top:-5px;font-size:25px;color:black;font-weight:bold;font-family:"Nunito", sans-serif}.donut-chart.svelte-e3kvj5.svelte-e3kvj5{right:50%;position:absolute;z-index:9;top:60%\n}.centered-text.svelte-e3kvj5.svelte-e3kvj5{position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%, 100%);transform:translate(-50%, 100%)}.centered-text.svelte-e3kvj5 h2.svelte-e3kvj5{font-size:15px;color:#808080;font-style:italic;font-weight:normal;font-family:"Nunito", sans-serif}.autocomplete-options.svelte-e3kvj5.svelte-e3kvj5{margin-top:0px;position:absolute;background-color:#e7e7e7;border:1px solid #ccc;z-index:9999999}.autocomplete-option.svelte-e3kvj5.svelte-e3kvj5{padding:1px;cursor:pointer}.autocomplete-option.svelte-e3kvj5.svelte-e3kvj5:hover{background-color:#ccc}.textbox.svelte-e3kvj5.svelte-e3kvj5{position:absolute;top:32%;right:12%}.search-text.svelte-e3kvj5.svelte-e3kvj5{font-style:italic;font-family:"Nunito", sans-serif;margin-right:10px;-webkit-transform:translateY(-70%);transform:translateY(-70%)}.search-bar.svelte-e3kvj5.svelte-e3kvj5{font-style:italic;font-family:"Nunito", sans-serif;position:absolute;top:25%;right:0%;-webkit-transform:translateY(-50%);transform:translateY(-50%);z-index:999}.button-text.svelte-e3kvj5.svelte-e3kvj5{font-style:italic;font-family:"Nunito", sans-serif;margin-right:10px;-webkit-transform:translateX(10px);transform:translateX(10px)}.button-container.svelte-e3kvj5.svelte-e3kvj5{display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;margin-top:20px;top:270px;position:absolute}.button-container.svelte-e3kvj5 button.svelte-e3kvj5{margin:0 5px;padding:5px 10px;font-size:14px;border:2px solid rgb(145, 144, 144);border-radius:10px}.button-container.svelte-e3kvj5 button.svelte-e3kvj5:hover{background-color:#ccc}',
+  code: '.header.svelte-1u5t6zt.svelte-1u5t6zt{font-family:"Nunito", sans-serif;background-color:#d9d9d9;padding:20px;border-bottom:2px solid #ccc}.header-content.svelte-1u5t6zt.svelte-1u5t6zt{background-color:"#d9d9d9";display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:justify;justify-content:space-between}.section-text.svelte-1u5t6zt.svelte-1u5t6zt{-webkit-box-flex:1;flex:1;margin-right:20px}h1.svelte-1u5t6zt.svelte-1u5t6zt{font-size:50px}h2.svelte-1u5t6zt.svelte-1u5t6zt{font-size:20px;font-family:Nunito, sans-serif}h3.svelte-1u5t6zt.svelte-1u5t6zt{font-size:18px;font-family:Nunito, sans-serif}.foreground.svelte-1u5t6zt.svelte-1u5t6zt{width:100%;position:relative;background-color:#f0f0f0;z-index:0;margin:0;border:none}.background.svelte-1u5t6zt.svelte-1u5t6zt{width:100%;height:100vh;position:relative;outline:none;margin:0;border:none;z-index:1}section.svelte-1u5t6zt.svelte-1u5t6zt{height:100vh;width:91.5%;position:relative;background-color:#f0f0f0;padding-left:60px;padding-right:60px}.fixed-graph.svelte-1u5t6zt.svelte-1u5t6zt{position:sticky;top:50px;z-index:999}.hour-selector.svelte-1u5t6zt.svelte-1u5t6zt{font-style:italic;font-family:"Nunito", sans-serif;position:absolute;top:25%;right:55%;-webkit-transform:translateY(-50%);transform:translateY(-50%);z-index:999}.hour-label.svelte-1u5t6zt.svelte-1u5t6zt{margin-bottom:5px}.top-stations.svelte-1u5t6zt.svelte-1u5t6zt{font-family:"Nunito", sans-serif;right:50%;-webkit-transform:translateX(50%);transform:translateX(50%);width:75%;top:1%;border:2px solid #ccc;border-radius:10px;position:absolute;z-index:9}.top-stations.svelte-1u5t6zt h2.svelte-1u5t6zt{text-align:center;margin-bottom:10px}.top-stations.svelte-1u5t6zt ul.svelte-1u5t6zt{list-style-type:decimal}.top-stations.svelte-1u5t6zt li.svelte-1u5t6zt{font-family:"Nunito", sans-serif}.menu-container.svelte-1u5t6zt.svelte-1u5t6zt{position:absolute;top:5%;right:0%;width:30%;height:94%;border:2px solid rgb(145, 144, 144);border-radius:10px;-webkit-transition:border-width 0.3s;transition:border-width 0.3s}.menu-container.svelte-1u5t6zt h1.svelte-1u5t6zt{text-align:center;font-family:"Nunito", sans-serif;font-size:20px;margin-top:220px}.station-name.svelte-1u5t6zt.svelte-1u5t6zt{height:14%;width:88%;right:3%;position:absolute;z-index:9;top:43%;padding:10px;border:2px solid #ccc;border-radius:10px;background-color:#f4f4ec}.station-name.svelte-1u5t6zt h2.svelte-1u5t6zt{font-size:15px;color:#808080;font-style:italic;font-weight:530;font-family:"Nunito", sans-serif}.station-name.svelte-1u5t6zt h3.svelte-1u5t6zt{margin-top:-5px;font-size:28px;color:black;font-weight:bold;font-family:"Nunito", sans-serif}.rider-count.svelte-1u5t6zt.svelte-1u5t6zt{height:15%;width:42%;right:3%;position:absolute;z-index:9;top:61%;padding:10px;border:2px solid #ccc;border-radius:10px;background-color:#f4f4ec}.rider-count.svelte-1u5t6zt h2.svelte-1u5t6zt{font-size:15px;color:#808080;font-style:italic;font-weight:530;font-family:"Nunito", sans-serif}.rider-count.svelte-1u5t6zt h3.svelte-1u5t6zt{margin-top:-5px;font-size:25px;color:black;font-weight:bold;font-family:"Nunito", sans-serif}.donut-chart.svelte-1u5t6zt.svelte-1u5t6zt{right:50%;position:absolute;z-index:9;top:60%\n}.centered-text.svelte-1u5t6zt.svelte-1u5t6zt{position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%, 100%);transform:translate(-50%, 100%)}.centered-text.svelte-1u5t6zt h2.svelte-1u5t6zt{font-size:15px;color:#808080;font-style:italic;font-weight:normal;font-family:"Nunito", sans-serif}.autocomplete-options.svelte-1u5t6zt.svelte-1u5t6zt{margin-top:0px;position:absolute;background-color:#e7e7e7;border:1px solid #ccc;z-index:9999999}.autocomplete-option.svelte-1u5t6zt.svelte-1u5t6zt{padding:1px;cursor:pointer}.autocomplete-option.svelte-1u5t6zt.svelte-1u5t6zt:hover{background-color:#ccc}.textbox.svelte-1u5t6zt.svelte-1u5t6zt{position:absolute;top:32%;right:12%}.search-text.svelte-1u5t6zt.svelte-1u5t6zt{font-style:italic;font-family:"Nunito", sans-serif;margin-right:10px;-webkit-transform:translateY(-70%);transform:translateY(-70%)}.search-bar.svelte-1u5t6zt.svelte-1u5t6zt{font-style:italic;font-family:"Nunito", sans-serif;position:absolute;top:25%;right:0%;-webkit-transform:translateY(-50%);transform:translateY(-50%);z-index:999}.button-text.svelte-1u5t6zt.svelte-1u5t6zt{font-style:italic;font-family:"Nunito", sans-serif;margin-right:10px;-webkit-transform:translateX(10px);transform:translateX(10px)}.button-container.svelte-1u5t6zt.svelte-1u5t6zt{display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;margin-top:20px;top:270px;position:absolute}.button-container.svelte-1u5t6zt button.svelte-1u5t6zt{margin:0 5px;padding:5px 10px;font-size:14px;border:2px solid rgb(145, 144, 144);border-radius:10px}.button-container.svelte-1u5t6zt button.svelte-1u5t6zt:hover{background-color:#ccc}',
   map: null
 };
 const ScrollyTeller = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -632,7 +639,7 @@ const ScrollyTeller = create_ssr_component(($$result, $$props, $$bindings, slots
       },
       {
         foreground: () => {
-          return `<div class="foreground svelte-e3kvj5" slot="foreground"><div class="progress-bars svelte-e3kvj5"><p>current section: <strong>${escape(index + 1)}/${escape(count)}</strong></p> <progress${add_attribute("value", count ? (index + 1) / count : 0, 0)}></progress> <p>offset in current section: <strong>${escape(parseFloat(offset).toFixed(2))}/1</strong></p> <progress${add_attribute("value", offset || 0, 0)}></progress></div> <section style="height: 400px; background-color: #d9d9d9;" class="svelte-e3kvj5" data-svelte-h="svelte-1nnkr4a"><div class="header svelte-e3kvj5" background-color="#d9d9d9"><div class="header-content svelte-e3kvj5"><div class="section-text svelte-e3kvj5"><h1 class="svelte-e3kvj5">A Deep Dive into MTA Data</h1> <h2 class="svelte-e3kvj5">An interactive tool for New York City&#39;s subway system navigation</h2></div></div></div></section> <section style="height: 3600px;" class="svelte-e3kvj5"><div class="fixed-graph svelte-e3kvj5"><h2 class="svelte-e3kvj5" data-svelte-h="svelte-73zzey">The Issue</h2> ${validate_component(Graph, "Graph").$$render($$result, { index, offset }, {}, {})}</div></section> <section class="svelte-e3kvj5"><h2 class="svelte-e3kvj5" data-svelte-h="svelte-kirs69">The Common Strategy</h2> <p data-svelte-h="svelte-1usfmoq">The most common strategy in which almost all tourists and commuters use to navitage subways efficiently is to identify when these subways are most/least populated. By doing to, people are able to avoid &quot;rush&quot; periods, and utilize the subway when it is less &quot;rushed&quot;. The line plot below   depicts the number of riders per hour throughout a randomly chosen weekday.</p> <p style="font-size: 14px; font-style: italic;" data-svelte-h="svelte-p2qpz7">*For the plot below, we have depicted data for the day February 01, 2024, obtained from data.ny.gov</p> ${validate_component(Line, "Line").$$render($$result, {}, {}, {})}</section> <section class="svelte-e3kvj5"><h2 class="svelte-e3kvj5" data-svelte-h="svelte-1nk6x48">Our Interactive Nagivation Tool</h2> ${validate_component(Map$1, "Map").$$render(
+          return `<div class="foreground svelte-1u5t6zt" slot="foreground"> <section style="height: 400px; background-color: #d9d9d9;" class="svelte-1u5t6zt" data-svelte-h="svelte-1nnkr4a"><div class="header svelte-1u5t6zt" background-color="#d9d9d9"><div class="header-content svelte-1u5t6zt"><div class="section-text svelte-1u5t6zt"><h1 class="svelte-1u5t6zt">A Deep Dive into MTA Data</h1> <h2 class="svelte-1u5t6zt">An interactive tool for New York City&#39;s subway system navigation</h2></div></div></div></section> <section style="height: 3600px;" class="svelte-1u5t6zt"><div class="fixed-graph svelte-1u5t6zt"><h2 class="svelte-1u5t6zt" data-svelte-h="svelte-73zzey">The Issue</h2> ${validate_component(Graph, "Graph").$$render($$result, { index, offset }, {}, {})}</div></section> <section class="svelte-1u5t6zt"><h2 class="svelte-1u5t6zt" data-svelte-h="svelte-kirs69">The Common Strategy</h2> <p data-svelte-h="svelte-1usfmoq">The most common strategy in which almost all tourists and commuters use to navitage subways efficiently is to identify when these subways are most/least populated. By doing to, people are able to avoid &quot;rush&quot; periods, and utilize the subway when it is less &quot;rushed&quot;. The line plot below   depicts the number of riders per hour throughout a randomly chosen weekday.</p> <p style="font-size: 14px; font-style: italic;" data-svelte-h="svelte-p2qpz7">*For the plot below, we have depicted data for the day February 01, 2024, obtained from data.ny.gov</p> ${validate_component(Line, "Line").$$render($$result, {}, {}, {})}</section> <section style="height: 830px;" class="svelte-1u5t6zt"><h2 class="svelte-1u5t6zt" data-svelte-h="svelte-1nk6x48">Our Interactive Nagivation Tool</h2> ${validate_component(Map$1, "Map").$$render(
             $$result,
             {
               busyness,
@@ -647,14 +654,14 @@ const ScrollyTeller = create_ssr_component(($$result, $$props, $$bindings, slots
               }
             },
             {}
-          )} <div class="menu-container svelte-e3kvj5"><div class="top-stations svelte-e3kvj5"><h2 class="svelte-e3kvj5" data-svelte-h="svelte-6g4uqy">Busiest stations at this time</h2> <ul class="svelte-e3kvj5">${each(topStations, (station) => {
-            return `<li class="svelte-e3kvj5">${escape(station.station_complex)}: ${escape(station.ridership)} riders</li>`;
-          })}</ul></div> <div class="hour-selector svelte-e3kvj5"><label for="hour-select" class="hour-label svelte-e3kvj5" data-svelte-h="svelte-11w3ycd">change hour:</label> <select id="hour-select" class="hour-select">${each(hours, (hour) => {
+          )} <div class="menu-container svelte-1u5t6zt"><div class="top-stations svelte-1u5t6zt"><h2 class="svelte-1u5t6zt" data-svelte-h="svelte-6g4uqy">Busiest stations at this time</h2> <ul class="svelte-1u5t6zt">${each(topStations, (station) => {
+            return `<li class="svelte-1u5t6zt">${escape(station.station_complex)}: ${escape(station.ridership)} riders</li>`;
+          })}</ul></div> <div class="hour-selector svelte-1u5t6zt"><label for="hour-select" class="hour-label svelte-1u5t6zt" data-svelte-h="svelte-11w3ycd">change hour:</label> <select id="hour-select" class="hour-select">${each(hours, (hour) => {
             return `<option${add_attribute("value", hour, 0)}>${escape(hour)}:00 - ${escape(hour + 1)}:00</option>`;
-          })}</select></div> <h1 class="svelte-e3kvj5" data-svelte-h="svelte-mtvsgv">Selected Station Details</h1> <div class="search-bar svelte-e3kvj5"><div class="search-text svelte-e3kvj5" data-svelte-h="svelte-goxd9k">search for station:</div> <div class="textbox svelte-e3kvj5"><input type="text" placeholder="Type station_complex name"${add_attribute("value", typedStationName, 0)}> ${``}</div></div> <div class="button-text svelte-e3kvj5" data-svelte-h="svelte-18timt2">jump to:</div> <svg width="100%" height="600"></svg> <div class="button-container svelte-e3kvj5"><button class="svelte-e3kvj5" data-svelte-h="svelte-41zdeu">Reset</button> <button class="svelte-e3kvj5" data-svelte-h="svelte-1t9uklk">Manhattan</button> <button class="svelte-e3kvj5" data-svelte-h="svelte-101bqp2">Brookelyn</button> <button class="svelte-e3kvj5" data-svelte-h="svelte-1umh6my">Bronx</button> <button class="svelte-e3kvj5" data-svelte-h="svelte-1kq8fae">Queens</button></div> ${` <div class="centered-text svelte-e3kvj5" data-svelte-h="svelte-7xxsiw"><h2 class="svelte-e3kvj5">click on a station to view details</h2></div>`}</div></section></div>`;
+          })}</select></div> <h1 class="svelte-1u5t6zt" data-svelte-h="svelte-mtvsgv">Selected Station Details</h1> <div class="search-bar svelte-1u5t6zt"><div class="search-text svelte-1u5t6zt" data-svelte-h="svelte-goxd9k">search for station:</div> <div class="textbox svelte-1u5t6zt"><input type="text" placeholder="Type station_complex name"${add_attribute("value", typedStationName, 0)}> ${``}</div></div> <div class="button-text svelte-1u5t6zt" data-svelte-h="svelte-18timt2">jump to:</div> <svg width="100%" height="600"></svg> <div class="button-container svelte-1u5t6zt"><button class="svelte-1u5t6zt" data-svelte-h="svelte-41zdeu">Reset</button> <button class="svelte-1u5t6zt" data-svelte-h="svelte-1t9uklk">Manhattan</button> <button class="svelte-1u5t6zt" data-svelte-h="svelte-f08l3z">Brooklyn</button> <button class="svelte-1u5t6zt" data-svelte-h="svelte-1umh6my">Bronx</button> <button class="svelte-1u5t6zt" data-svelte-h="svelte-1kq8fae">Queens</button></div> ${` <div class="centered-text svelte-1u5t6zt" data-svelte-h="svelte-7xxsiw"><h2 class="svelte-1u5t6zt">click on a station to view details</h2></div>`}</div></section></div>`;
         },
         background: () => {
-          return `<div class="background svelte-e3kvj5" slot="background" data-svelte-h="svelte-afik7u"></div>`;
+          return `<div class="background svelte-1u5t6zt" slot="background" data-svelte-h="svelte-afik7u"></div>`;
         }
       }
     )}`;
