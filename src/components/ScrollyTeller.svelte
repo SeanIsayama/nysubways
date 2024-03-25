@@ -231,6 +231,8 @@ function zoom_queens(){
           <div class="header-content">
             <div class="section-text">
               <h1>A Deep Dive into MTA Data</h1>
+              <h2>By Hikaru Isayama, Ethan Vo, and Julia Jung</h2>
+              <br><br/>
               <h2>An interactive tool for New York City's subway system navigation</h2>
               <a href="https://youtu.be/N35HDHWHOQc">Old Demo Video</a>
             </div>
